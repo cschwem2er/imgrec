@@ -9,16 +9,6 @@ init:
 
 install:
   ps: Bootstrap
-  
-matrix:
-  - R_VERSION: 3.4.4
-    R_ARCH: x64
-    GCC_PATH: mingw_64
-
-  - R_VERSION: devel
-    R_ARCH: x64
-    GCC_PATH: mingw_64
-
 
 cache:
   - C:\RLibrary

@@ -1,0 +1,26 @@
+Package: imgrec
+Type: Package
+Title: Image Recognition with R
+Version: 0.1.0
+Date: 2019-06-29
+Authors@R: person("Carsten", "Schwemmer", email = "c.schwem2er@gmail.com", comment = c(ORCID = "0000-0001-9084-946X"), role = c("aut", "cre"))
+URL: https://github.com/cschwem2er/imgrec
+BugReports: https://github.com/cschwem2er/imgrec/issues
+Description: Provides an interface for image recognition using the 'Google Vision API' <https://cloud.google.com/vision/> .  Converts API data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports:
+    knitr (>= 1.2.0),
+    base64enc (>= 0.1.0),
+    dplyr (>= 0.8.0),
+    httr (>= 1.4.0),
+    jsonlite (>= 1.6.0)
+Suggests: 
+    magick (>= 2.0.0),
+    ggplot2 (>= 3.2.0),
+    purrr (>= 0.3.0),
+    usethis (>= 1.5.0),
+    rmarkdown (>= 1.1.0)
+VignetteBuilder: knitr

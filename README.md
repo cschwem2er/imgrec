@@ -1,2 +1,175 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # imgrec
-R Package for Image Recognition
+
+[![Travis-CI Build
+Status](https://travis-ci.org/cschwem2er/imgrec.svg?branch=master)](https://travis-ci.org/cschwem2er/imgrec)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/cschwem2er/imgrec?branch=master&svg=true)](https://ci.appveyor.com/project/cschwem2er/imgrec)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/imgrec)](https://cran.r-project.org/package=imgrec)
+
+## Image Recognition with R
+
+Imgrec provides an interface for image recognition using the [Google
+Vision API](https://cloud.google.com/vision/). It includes functions to
+convert data for features such as object detection and optical character
+recognition to data frames. The package also includes functions for
+analyzing image annotations.
+
+## How to Install
+
+You can download and install the latest development version of the app
+with the devtools package by running
+`devtools::install_github('cschwem2er/imgrec')`.
+
+For Windows users installing from github requires proper setup of
+[Rtools](https://cran.r-project.org/bin/windows/Rtools/), for which a
+tutorial is available
+[here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows).
+
+At the moment, `imgrec` is not yet available on CRAN, but a submission
+is being prepared.
+
+## How to Use
+
+### Authentification
+
+Before loading `imgrec` you first need to initiate your authentification
+credentials. You need an API from a Google Project with access
+permissionf for the Google Vision API. For this, you can first create a
+project using the [developer
+console](https://console.developers.google.com). Next select *library*
+for your created project in the console and enable the *Cloud Vision
+API* end point. After this, select *Credentials* and create an API key.
+Finally, the API key needs to be set as environment variable before
+using the initialization function `gvision_init()`:
+
+``` r
+Sys.setenv(gvision_key = "Your Google Vision API key")
+```
+
+``` r
+library(imgrec)
+gvision_init()
+#> Succesfully initialized authentification credentials.
+```
+
+You only need to call `gvision_init()` once after loading the package.
+In order to avoid entering your credentials for each session, you can
+permanently store them in your `.Renviron`. I recommend
+`usethis::edit_r_environ()` to find and edit your environment file.
+
+### Image annotations
+
+Google Vision accepts common file types such as JPG, PNG, or BMP. Images
+can be passed to several `get_annotations`, either as url strings or
+file paths to local images. In the following example, `get_annotations`
+is used to retrieve annotations for a poster of the Star Wars movie [The
+Force
+Awakens](https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens).
+
+<img src='https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg' width='250'>
+
+``` r
+sw_image <- 'https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg'
+results <- get_annotations(images = sw_image, # image character vector
+                           features = 'all', # request all available features
+                           max_res = 5, # maximum number of results per feature
+                           mode = 'url') # determine image type
+#> [1] "Sending API request(s).."
+```
+
+The function returns a response object from the Google Vision API. It
+also recognizes if a user passes a character vector with multiple
+images. In this case, request batches are created automatically to
+reduce the number of required calls to the API.
+
+After retrieving annotations, raw data can be stored in an UTF-8 encoded
+[JSON](https://en.wikipedia.org/wiki/JSON) file:
+
+``` r
+temp_file_path <- tempfile(fileext = '.json')
+save_json(results, temp_file_path)
+```
+
+While some users might prefer to work with raw `.json` data, which
+includes every single detail returned by the API, the structure is quite
+complex and deeply nested. To simplify the data, `parse_annotations`
+converts most of the features to data frames. For each feature, the
+original identifier of each image is included as `img_id`.
+
+``` r
+img_data <- parse_annotations(results) # returns list of data frames
+names(img_data) # all available features
+#>  [1] "labels"            "web_labels"        "web_similar"      
+#>  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
+#>  [7] "objects"           "logos"             "full_text"        
+#> [10] "safe_search"       "colors"
+```
+
+Once the features are converted to data frames, other R packages can be
+used to analyze the data. For instance, the `labels` data frame contains
+annotations about image content:
+
+``` r
+img_labels <- img_data$labels
+head(img_labels)
+```
+
+| mid       | description    |     score | topicality | img\_id                                                                                            |
+| :-------- | :------------- | --------: | ---------: | :------------------------------------------------------------------------------------------------- |
+| /m/01n5jq | Poster         | 0.9679052 |  0.9679052 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/02vxn  | Movie          | 0.9287522 |  0.9287522 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/03c31  | Graphic design | 0.7759998 |  0.7759998 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/0218rg | Flyer          | 0.6593872 |  0.6593872 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/011s0  | Advertising    | 0.6283476 |  0.6283476 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+
+The package also extracts bounding polygons for logos, objects, faces
+and landmarks. We can for instance visualize all recognized logos of the
+Star Wars movie poster with
+[magick](https://cran.r-project.org/web/packages/magick/index.html) and
+[ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html):
+
+``` r
+library(magick)
+library(ggplot2)
+
+img <- image_read(sw_image) 
+image_ggplot(img) + 
+   geom_rect(data = img_data$logos, 
+          aes(xmin = poly_x_min, xmax = poly_x_max, 
+              ymin = poly_y_min, ymax = poly_y_max),
+              color = 'yellow', fill = NA, linetype = 'dashed', size = 2) +
+   geom_text(data = img_data$logos, 
+          aes(x =poly_x_max, y = poly_y_max, label = description),
+              size = 8, color = "yellow", vjust = 1) +
+  theme(legend.position="none")
+```
+
+<img src="man/figures/sw_logo_rec.png" width="400">
+
+Additional functions for feature analysis are currently in development.
+
+## Citation
+
+If you use imgrec for your publications please consider citing
+it:
+
+``` 
+  Carsten Schwemmer (2019). imgrec: Image recognition with R. R package version 0.1.0.
+  https://github.com/cschwem2er/imgrec
+```
+
+A BibTeX entry for LaTeX users is:
+
+``` 
+  @Manual{,
+    title = {imgrec: Image recognition with R},
+    author = {Carsten Schwemmer},
+    year = {2019},
+    note = {R package version 0.1.0},
+    url = {https://github.com/cschwem2er/imgrec},
+  }
+```

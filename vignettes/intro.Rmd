@@ -36,7 +36,7 @@ Before loading `imgrec` you first need to initiate your authentification credent
 Sys.setenv(gvision_key = "Your Google Vision API key")
 ```
 
-```{r}
+```{r, eval = LOCAL}
 library(imgrec)
 gvision_init()
 ```
@@ -49,7 +49,7 @@ Google Vision accepts common file types such as JPG, PNG, or BMP.  Images can be
 
 <img src='https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg' width='250'>
 
-```{r}
+```{r, eval = LOCAL}
 sw_image <- 'https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg'
 results <- get_annotations(images = sw_image, # image character vector
                            features = 'all', # request all available features
@@ -69,19 +69,19 @@ save_json(results, temp_file_path)
 While some users might prefer to work with raw `.json` data, which includes every single detail returned by the API, the structure is quite complex and deeply nested. To simplify the data, `parse_annotations` converts most of the features to data frames. For each feature, the original identifier of each image is included as `img_id`.
 
 
-```{r}
+```{r, eval = LOCAL}
 img_data <- parse_annotations(results) # returns list of data frames
 names(img_data) # all available features
 ```
 
 Once the features are converted to data frames, other R packages can be used to analyze the data. For instance, the `labels` data frame contains annotations about image content:
 
-```{r eval=FALSE}
+```{r, eval = FALSE}
 img_labels <- img_data$labels
 head(img_labels)
 ```
 
-```{r, results = 'asis', echo = FALSE}
+```{r, results = 'asis', echo = FALSE, eval = LOCAL}
 img_labels <- img_data$labels
 knitr::kable(head(img_labels))
 ```
@@ -91,7 +91,7 @@ knitr::kable(head(img_labels))
 Imgrec also extracts bounding polygons for logos, objects, faces and landmarks. We can for instance visualize all recognized logos of the Star Wars movie poster with  [magick](https://cran.r-project.org/web/packages/magick/index.html) and [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html):
 
 
-```{r, fig.height=5.36, fig.width=3.66}
+```{r, fig.height=5.36, fig.width=3.66, eval = LOCAL}
 library(magick)
 library(ggplot2)
 

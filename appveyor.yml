@@ -17,14 +17,11 @@ cache:
 
 environment:
   global:
-    R_ARCH: x64
-    USE_RTOOLS: true
-    CRAN: "https://cloud.r-project.org"
-
-  matrix:
-  - R_VERSION: devel
-    R_ARCH: x64
+    R_VERSION: devel
     GCC_PATH: mingw_64
+    R_ARCH: x64
+    USE_RTOOLS: false
+    CRAN: "https://cloud.r-project.org"
 
 # Adapt as necessary starting from here
 

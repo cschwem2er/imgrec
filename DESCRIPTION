@@ -14,7 +14,7 @@ RoxygenNote: 6.1.1
 Imports:
     knitr (>= 1.2.0),
     base64enc (>= 0.1.0),
-    dplyr (>= 0.8.0),
+    dplyr (>= 0.7.0),
     httr (>= 1.4.0),
     jsonlite (>= 1.6.0)
 Suggests: 

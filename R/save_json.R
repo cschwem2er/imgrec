@@ -1,5 +1,5 @@
 
-#' @title Save annotation data as JSON
+#' @title ave annotation data as JSON
 #' @name save_json
 #' @description
 #' Writes raw JSON data as returned by the Google Vision API to a UTF-8 encoded local file.

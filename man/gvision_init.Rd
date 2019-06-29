@@ -2,7 +2,7 @@
 % Please edit documentation in R/gvision_init.R
 \name{gvision_init}
 \alias{gvision_init}
-\title{Authorization for Google Vision}
+\title{authorization for Google Vision}
 \usage{
 gvision_init()
 }

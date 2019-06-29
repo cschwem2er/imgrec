@@ -1,5 +1,5 @@
 
-#' @title Authorization for Google Vision
+#' @title authorization for Google Vision
 #' @name gvision_init
 #' @description
 #' Initializes the authorization credentials for the 'Google Vision' API.

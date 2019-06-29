@@ -21,6 +21,11 @@ environment:
     USE_RTOOLS: true
     CRAN: "https://cloud.r-project.org"
 
+  matrix:
+  - R_VERSION: devel
+    R_ARCH: x64
+    GCC_PATH: mingw_64
+
 # Adapt as necessary starting from here
 
 build_script:

@@ -17,7 +17,7 @@ cache:
 
 environment:
   global:
-    R_VERSION: devel
+    R_VERSION: 3.4.4
     GCC_PATH: mingw_64
     R_ARCH: x64
     USE_RTOOLS: false

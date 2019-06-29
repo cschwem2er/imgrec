@@ -7,11 +7,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r, echo = FALSE}
+LOCAL <- identical(Sys.getenv("LOCAL"), "true")
+knitr::opts_chunk$set(purl = LOCAL)
 ```
 
 ## imgrec - image recognition with R
@@ -85,7 +83,7 @@ head(img_labels)
 
 ```{r, results = 'asis', echo = FALSE}
 img_labels <- img_data$labels
-knitr::kable(img_labels)
+knitr::kable(head(img_labels))
 ```
 
 

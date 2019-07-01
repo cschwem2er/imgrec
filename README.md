@@ -150,7 +150,7 @@ image_ggplot(img) +
   theme(legend.position="none")
 ```
 
-![](README-unnamed-chunk-9-1.png)<!-- -->
+<img src="man/figures/sw_logo_rec.png" width="300">
 
 Additional functions for feature analysis are currently in development.
 

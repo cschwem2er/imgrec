@@ -57,6 +57,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -93,7 +96,7 @@
 <div id="how-to-install" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-to-install" class="anchor"></a>How to Install</h2>
-<p>You can download and install the latest development version of the app with the devtools package by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github('cschwem2er/imgrec')</a></code>.</p>
+<p>You can download and install the latest development version of the app with the devtools package by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github('cschwem2er/imgrec')</a></code>.</p>
 <p>For Windows users installing from github requires proper setup of <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>, for which a tutorial is available <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows">here</a>.</p>
 <p>At the moment, <code>imgrec</code> is not yet available on CRAN, but a submission is being prepared.</p>
 </div>
@@ -103,17 +106,17 @@
 <div id="authentification" class="section level3">
 <h3 class="hasAnchor">
 <a href="#authentification" class="anchor"></a>Authentification</h3>
-<p>Before loading <code>imgrec</code> you first need to initiate your authentification credentials. You need an API from a Google Project with access permissionf for the Google Vision API. For this, you can first create a project using the <a href="https://console.developers.google.com">developer console</a>. Next select <em>library</em> for your created project in the console and enable the <em>Cloud Vision API</em> end point. After this, select <em>Credentials</em> and create an API key. Finally, the API key needs to be set as environment variable before using the initialization function <code><a href="reference/gvision_init.html">gvision_init()</a></code>:</p>
+<p>Before loading <code>imgrec</code> you first need to initiate your authentification credentials. You need an API key from a Google Project with access permission for the Google Vision API. For this, you can first create a project using the Google Cloud platform. The setup process is explained in the API <a href="https://cloud.google.com/vision/docs/before-you-begin">documentation</a>. You will probably need to enable billing, but depending on your feature selection up to 1000 requests per month are free (see <a href="https://cloud.google.com/vision/pricing">pricing</a>). Next following the <a href="https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key">instructions</a> for creating an API key. Finally, the API key needs to be set as environment variable before using the initialization function <code><a href="reference/gvision_init.html">gvision_init()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.setenv">Sys.setenv</a></span>(<span class="dt">gvision_key =</span> <span class="st">"Your Google Vision API key"</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(imgrec)</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="reference/gvision_init.html">gvision_init</a></span>()</a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; Succesfully initialized authentification credentials.</span></a></code></pre></div>
-<p>You only need to call <code><a href="reference/gvision_init.html">gvision_init()</a></code> once after loading the package. In order to avoid entering your credentials for each session, you can permanently store them in your <code>.Renviron</code>. I recommend <code><a href="https://usethis.r-lib.org/reference/edit.html">usethis::edit_r_environ()</a></code> to find and edit your environment file.</p>
+<p>In order to avoid calling <code>Sys.setenv</code>, you can permanently store the API key in your <code>.Renviron</code>. I recommend <code><a href="https://www.rdocumentation.org/packages/usethis/topics/edit">usethis::edit_r_environ()</a></code> to find and edit your environment file.</p>
 </div>
 <div id="image-annotations" class="section level3">
 <h3 class="hasAnchor">
 <a href="#image-annotations" class="anchor"></a>Image annotations</h3>
-<p>Google Vision accepts common file types such as JPG, PNG, or BMP. Images can be passed to several <code>get_annotations</code>, either as url strings or file paths to local images. In the following example, <code>get_annotations</code> is used to retrieve annotations for a poster of the Star Wars movie <a href="https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens">The Force Awakens</a>.</p>
+<p>Google Vision accepts common file types such as JPG, PNG, or BMP. Images can be passed to the function <code>get_annotations</code>, either as url strings or file paths to local images. In the following example, <code>get_annotations</code> is used to retrieve annotations for a poster of the Star Wars movie <a href="https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens">The Force Awakens</a>.</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" width="250"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">sw_image &lt;-<span class="st"> 'https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg'</span></a>
 <a class="sourceLine" id="cb3-2" title="2">results &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_annotations.html">get_annotations</a></span>(<span class="dt">images =</span> sw_image, <span class="co"># image character vector</span></a>
@@ -121,8 +124,7 @@
 <a class="sourceLine" id="cb3-4" title="4">                           <span class="dt">max_res =</span> <span class="dv">5</span>, <span class="co"># maximum number of results per feature</span></a>
 <a class="sourceLine" id="cb3-5" title="5">                           <span class="dt">mode =</span> <span class="st">'url'</span>) <span class="co"># determine image type</span></a>
 <a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; [1] "Sending API request(s).."</span></a></code></pre></div>
-<p>The function returns a response object from the Google Vision API. It also recognizes if a user passes a character vector with multiple images. In this case, request batches are created automatically to reduce the number of required calls to the API.</p>
-<p>After retrieving annotations, raw data can be stored in an UTF-8 encoded <a href="https://en.wikipedia.org/wiki/JSON">JSON</a> file:</p>
+<p>The function returns a response object from the Google Vision API. It also recognizes if a user passes a character vector with multiple images. In this case, request batches are created automatically to reduce the number of required calls to the API. After retrieving annotations, raw data can be stored in an UTF-8 encoded <a href="https://en.wikipedia.org/wiki/JSON">JSON</a> file:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">temp_file_path &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempfile</a></span>(<span class="dt">fileext =</span> <span class="st">'.json'</span>)</a>
 <a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="reference/save_json.html">save_json</a></span>(results, temp_file_path)</a></code></pre></div>
 <p>While some users might prefer to work with raw <code>.json</code> data, which includes every single detail returned by the API, the structure is quite complex and deeply nested. To simplify the data, <code>parse_annotations</code> converts most of the features to data frames. For each feature, the original identifier of each image is included as <code>img_id</code>.</p>
@@ -195,7 +197,7 @@
 <a class="sourceLine" id="cb7-11" title="11">          <span class="kw">aes</span>(<span class="dt">x =</span>poly_x_max, <span class="dt">y =</span> poly_y_max, <span class="dt">label =</span> description),</a>
 <a class="sourceLine" id="cb7-12" title="12">              <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">color =</span> <span class="st">"yellow"</span>, <span class="dt">vjust =</span> <span class="dv">1</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb7-13" title="13"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">"none"</span>)</a></code></pre></div>
-<p><img src="reference/figures/sw_logo_rec.png" width="400"></p>
+<p><img src="reference/figures/sw_logo_rec.png" width="300"></p>
 <p>Additional functions for feature analysis are currently in development.</p>
 </div>
 </div>

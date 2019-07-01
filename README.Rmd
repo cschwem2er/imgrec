@@ -94,7 +94,7 @@ The package also extracts bounding polygons for logos, objects, faces and landma
 
 
 
-```{r fig.height=5.36, fig.width=3.66, message=FALSE, warning=FALSE}
+```{r fig.height=5.36, fig.width=3.66, eval=FALSE}
 library(magick)
 library(ggplot2)
 
@@ -111,6 +111,7 @@ image_ggplot(img) +
 
 ```
 
+<img src="man/figures/sw_logo_rec.png" width="300">
 
 Additional functions for feature analysis are currently in development.
 

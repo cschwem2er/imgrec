@@ -11,9 +11,8 @@
 #' @importFrom httr content_type_json
 #' @importFrom httr user_agent
 #' @importFrom httr content
+#' @importFrom rlang .data
 
-## quiets concerns of R CMD check for non standard evaluation
-utils::globalVariables(c( ".imgrec", "is",  "."))
 
 .imgrec <- new.env(parent = emptyenv())
 
@@ -188,17 +187,17 @@ parse_faces <- function(faces, img_id) {
 
   }
   all_faces <- rename(all_faces,
-           roll_angle = rollAngle,
-           pan_angle = panAngle, 
-           detection_confidence = detectionConfidence ,
-           landmark_confidence = landmarkingConfidence ,
-           joy_likelihood = joyLikelihood ,
-           sorrow_likelihood = sorrowLikelihood ,
-           anger_likelihood = angerLikelihood,
-           suprise_likelihood =  surpriseLikelihood,
-           under_exposed_likelihood =  underExposedLikelihood,
-           blurred_likelihood =  blurredLikelihood, 
-           headwear_likelihood = headwearLikelihood)
+           roll_angle = .data$rollAngle,
+           pan_angle = .data$panAngle, 
+           detection_confidence = .data$detectionConfidence ,
+           landmark_confidence = .data$landmarkingConfidence ,
+           joy_likelihood = .data$joyLikelihood ,
+           sorrow_likelihood = .data$sorrowLikelihood ,
+           anger_likelihood = .data$angerLikelihood,
+           suprise_likelihood =  .data$surpriseLikelihood,
+           under_exposed_likelihood =  .data$underExposedLikelihood,
+           blurred_likelihood =  .data$blurredLikelihood, 
+           headwear_likelihood = .data$headwearLikelihood)
   
   return(all_faces)
 }

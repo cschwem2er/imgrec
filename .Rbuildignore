@@ -5,3 +5,5 @@ README.Rmd
 ^LICENSE\.md$
 _pkgdown.yaml
 ^appveyor\.yml$
+docs/
+^cran-comments\.md$

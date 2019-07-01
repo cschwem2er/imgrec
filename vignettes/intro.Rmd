@@ -29,7 +29,7 @@ At the moment, `imgrec` is not yet available on CRAN, but a submission is being 
 
 ### Authentification
 
-Before loading `imgrec` you first need to initiate your authentification credentials. You need an API from a Google Project with access permissionf for the Google Vision API. For this, you can first create a project using the [developer console](https://console.developers.google.com). Next select *library* for your created project in the console and enable the *Cloud Vision API* end point. After this, select *Credentials* and create an API key. Finally, the API key needs to be set as environment variable before using the initialization function `gvision_init()`:
+Before loading `imgrec` you first need to initiate your authentification credentials. You need an API key from a Google Project with access permission for the Google Vision API. For this, you can first create a project using the Google Cloud platform. The setup process is explained in the API [documentation](https://cloud.google.com/vision/docs/before-you-begin). You will probably need to enable billing, but depending on your feature selection up to 1000 requests per month are free (see [pricing](https://cloud.google.com/vision/pricing)). Next following the [instructions](https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key) for creating an API key.  Finally, the API key needs to be set as environment variable before using the initialization function `gvision_init()`:
 
 
 ```{r, eval = FALSE}
@@ -41,7 +41,7 @@ library(imgrec)
 gvision_init()
 ```
 
-You only need to call `gvision_init()` once after loading the package. In order to avoid entering your credentials for each session, you can permanently store them in your `.Renviron`. I recommend `usethis::edit_r_environ()` to find and edit your environment file.
+In order to avoid calling `Sys.setenv`, you can permanently store the API key in your `.Renviron`. I recommend `usethis::edit_r_environ()` to find and edit your environment file.
 
 ### Image annotations
 

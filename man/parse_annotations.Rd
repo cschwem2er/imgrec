@@ -3,9 +3,6 @@
 \name{parse_annotations}
 \alias{parse_annotations}
 \title{parse image annotations}
-\usage{
-parse_annotations(annotations)
-}
 \arguments{
 \item{annotations}{An annotation object created with \code{\link[imgrec]{get_annotations}}.}
 }
@@ -48,4 +45,6 @@ img_data <- parse_annotations(results)
 # available feature data frames
 names(img_data)
   }
+  
+  ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 }

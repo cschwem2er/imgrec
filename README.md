@@ -37,14 +37,18 @@ is being prepared.
 ### Authentification
 
 Before loading `imgrec` you first need to initiate your authentification
-credentials. You need an API from a Google Project with access
-permissionf for the Google Vision API. For this, you can first create a
-project using the [developer
-console](https://console.developers.google.com). Next select *library*
-for your created project in the console and enable the *Cloud Vision
-API* end point. After this, select *Credentials* and create an API key.
-Finally, the API key needs to be set as environment variable before
-using the initialization function `gvision_init()`:
+credentials. You need an API key from a Google Project with access
+permission for the Google Vision API. For this, you can first create a
+project using the Google Cloud platform. The setup process is explained
+in the API
+[documentation](https://cloud.google.com/vision/docs/before-you-begin).
+You will probably need to enable billing, but depending on your feature
+selection up to 1000 requests per month are free (see
+[pricing](https://cloud.google.com/vision/pricing)). Next following the
+[instructions](https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key)
+for creating an API key. Finally, the API key needs to be set as
+environment variable before using the initialization function
+`gvision_init()`:
 
 ``` r
 Sys.setenv(gvision_key = "Your Google Vision API key")
@@ -56,18 +60,17 @@ gvision_init()
 #> Succesfully initialized authentification credentials.
 ```
 
-You only need to call `gvision_init()` once after loading the package.
-In order to avoid entering your credentials for each session, you can
-permanently store them in your `.Renviron`. I recommend
-`usethis::edit_r_environ()` to find and edit your environment file.
+In order to avoid calling `Sys.setenv`, you can permanently store the
+API key in your `.Renviron`. I recommend `usethis::edit_r_environ()` to
+find and edit your environment file.
 
 ### Image annotations
 
 Google Vision accepts common file types such as JPG, PNG, or BMP. Images
-can be passed to several `get_annotations`, either as url strings or
-file paths to local images. In the following example, `get_annotations`
-is used to retrieve annotations for a poster of the Star Wars movie [The
-Force
+can be passed to the function `get_annotations`, either as url strings
+or file paths to local images. In the following example,
+`get_annotations` is used to retrieve annotations for a poster of the
+Star Wars movie [The Force
 Awakens](https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens).
 
 <img src='https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg' width='250'>
@@ -84,9 +87,8 @@ results <- get_annotations(images = sw_image, # image character vector
 The function returns a response object from the Google Vision API. It
 also recognizes if a user passes a character vector with multiple
 images. In this case, request batches are created automatically to
-reduce the number of required calls to the API.
-
-After retrieving annotations, raw data can be stored in an UTF-8 encoded
+reduce the number of required calls to the API. After retrieving
+annotations, raw data can be stored in an UTF-8 encoded
 [JSON](https://en.wikipedia.org/wiki/JSON) file:
 
 ``` r
@@ -148,7 +150,7 @@ image_ggplot(img) +
   theme(legend.position="none")
 ```
 
-<img src="man/figures/sw_logo_rec.png" width="400">
+![](README-unnamed-chunk-9-1.png)<!-- -->
 
 Additional functions for feature analysis are currently in development.
 

@@ -131,8 +131,8 @@ head(img_labels)
 The package also extracts bounding polygons for logos, objects, faces
 and landmarks. We can for instance visualize all recognized logos of the
 Star Wars movie poster with
-[magick](https://cran.r-project.org/web/packages/magick/index.html) and
-[ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html):
+[magick](https://CRAN.R-project.org/package=magick) and
+[ggplot2](https://CRAN.R-project.org/package=ggplot2):
 
 ``` r
 library(magick)

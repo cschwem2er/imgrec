@@ -46,7 +46,7 @@ Calls the 'Google Vision' API to return annotations. The function automatically 
  download.file(finn_image, temp_img_path, mode = 'wb', quiet = TRUE)
 
  results <- get_annotations(images = temp_img_path,
-            features = c('labels', 'faces'), max_res = 5, mode = 'local')
+            features = c('label', 'face'), max_res = 5, mode = 'local')
  }
 
 

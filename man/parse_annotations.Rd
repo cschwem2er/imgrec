@@ -3,6 +3,9 @@
 \name{parse_annotations}
 \alias{parse_annotations}
 \title{parse image annotations}
+\usage{
+parse_annotations(annotations)
+}
 \arguments{
 \item{annotations}{An annotation object created with \code{\link[imgrec]{get_annotations}}.}
 }
@@ -22,6 +25,7 @@ A list containing data frames for each feature:
   \item{full_text}{full text annotation}
   \item{safe_serarch}{safe search annotation}
   \item{colors}{dominant color annotations}
+  \item{crop_hints}{crop hints for ratios 0.8/1.0/1.2}
 }
 }
 \description{
@@ -46,5 +50,4 @@ img_data <- parse_annotations(results)
 names(img_data)
   }
   
-  ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 }

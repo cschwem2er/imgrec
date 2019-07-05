@@ -2,7 +2,7 @@ Package: imgrec
 Type: Package
 Title: Image Recognition with R
 Version: 0.1.0
-Date: 2019-06-29
+Date: 2019-07-05
 Authors@R: person("Carsten", "Schwemmer", email = "c.schwem2er@gmail.com", comment = c(ORCID = "0000-0001-9084-946X"), role = c("aut", "cre"))
 URL: https://github.com/cschwem2er/imgrec
 BugReports: https://github.com/cschwem2er/imgrec/issues

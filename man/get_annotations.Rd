@@ -9,7 +9,7 @@ get_annotations(images, features, max_res, mode)
 \arguments{
 \item{images}{A character vector for images to be annotated. Can either be url strings or local images, as specified with \code{mode}.}
 
-\item{features}{A character vector for the features to be returned. Accepts \code{'all'} or any combination of the following inputs: \code{'web', 'text', 'face', 'landmark', 'logo', 'safe_search'}}
+\item{features}{A character vector for the features to be returned. Accepts \code{'all'} or any combination of the following inputs: \code{'label', 'web', 'text', 'face', 'landmark', 'logo', 'safe_search', 'object', 'properties'}}
 
 \item{max_res}{An integer specifying the maximum number of results to be returned for each feature.}
 

@@ -31,7 +31,7 @@
                                logo = "LOGO_DETECTION",
                                safe_search = "SAFE_SEARCH_DETECTION" ,
                                properties = "IMAGE_PROPERTIES",
-                               object_loc = "OBJECT_LOCALIZATION" )
+                               object = "OBJECT_LOCALIZATION" )
 .imgrec$valid_features <- names(.imgrec$feature_table)
 
 
@@ -49,12 +49,15 @@ build_features <- function(features, max_res = 10) {
   if(features[1] == 'all') {
     features = .imgrec$valid_features
   }
+  
 
   for (feat in seq_along(features)) {
     feature <- list(type = .imgrec$feature_table[[features[feat]]])
     if (!features[feat] %in% c('text')) {
       feature$maxResults <- max_res
     }
+
+    
     all_feats <- append(all_feats, list(feature))
   }
   return(all_feats)
@@ -72,6 +75,12 @@ build_img <- function(img, features, max_res = 10, mode = 'url') {
   } else  {
     img_obj$image$content <- base64encode(img)
   }
+  
+  
+  if('properties' %in% features | 'all' %in% features) {
+    img_obj$imageContext$cropHintsParams$aspectRatios <- c(0.8, 1, 1.2)
+  }
+  
 
   return (img_obj)
 }
@@ -210,6 +219,8 @@ parse_objects <- function(objects, img_id) {
   for (object in seq_along(objects)) {
     raw <- objects[[object]]
     poly <- do.call(bind_rows, raw$boundingPoly$normalizedVertices)
+    # object poly are relative and thus need to be multiplied with
+    # image width (x) and height (y) for visualization purposes
     poly_x_min <- min(poly$x, na.rm = TRUE)
     poly_y_min <- min(poly$y, na.rm = TRUE)
     poly_x_max <- max(poly$x, na.rm = TRUE)
@@ -322,21 +333,28 @@ parse_colors <- function(colors, img_id) {
 }
 
 parse_crop_hints <- function(crop_hints, img_id) {
-  # parse crop hints data
-  poly <- do.call(bind_rows, crop_hints$boundingPoly$vertices)
-  confidence <- ifelse(is.null(crop_hints$confidence), NA,
-                       crop_hints$confidence)
-  importance = ifelse(is.null(crop_hints$importanceFraction), NA,
-                      crop_hints$importanceFraction)
-  crop_df <- tibble(
-    poly_x_min = min(poly$x, na.rm = TRUE),
-    poly_y_min =  min(poly$y, na.rm = TRUE),
-    poly_x_max =  max(poly$x, na.rm = TRUE),
-    poly_y_max =  max(poly$y, na.rm = TRUE),
-    confidence = confidence,
-    importance = importance,
-    img_id =  img_id)
-  return(crop_df)
+  
+  all_crops <- tibble()
+  for (crop in seq_along(crop_hints)) {
+    raw <- crop_hints[[crop]]
+    poly <- do.call(bind_rows, raw$boundingPoly$vertices)
+    # object poly are relative and thus need to be multiplied with
+    # image width (x) and height (y) for visualization purposes
+    poly_x_min <- min(poly$x, na.rm = TRUE)
+    poly_y_min <- min(poly$y, na.rm = TRUE)
+    poly_x_max <- max(poly$x, na.rm = TRUE)
+    poly_y_max <- max(poly$y, na.rm = TRUE)
+    raw$boundingPoly <- NULL
+    crop_df <- as_tibble(raw)
+    names(crop_df) <- c('confidence', 'importance_frac')
+    crop_df$poly_x_min <- poly_x_min
+    crop_df$poly_y_min <- poly_y_min
+    crop_df$poly_x_max <- poly_x_max
+    crop_df$poly_y_max <- poly_y_max
+    crop_df$img_id <- img_id
+    all_crops <-  bind_rows(all_crops, crop_df)
+  }
+  return(all_crops)
 }
 
 

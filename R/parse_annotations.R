@@ -19,6 +19,7 @@
 #'   \item{full_text}{full text annotation}
 #'   \item{safe_serarch}{safe search annotation}
 #'   \item{colors}{dominant color annotations}
+#'   \item{crop_hints}{crop hints for ratios 0.8/1.0/1.2}
 #' }
 #'
 #' @export
@@ -42,8 +43,7 @@
 #' names(img_data)
 #'   }
 #'   
-#'   ## quiets concerns of R CMD check re: the .'s that appear in pipelines
-if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
+
 
 
 parse_annotations <- function(annotations) {
@@ -168,11 +168,10 @@ parse_annotations <- function(annotations) {
     # parse crop hints
     # deactivated for now as the API does not return complete bounding polys
 
-    # if (!is.null(dat[['cropHintsAnnotation']][['cropHints']])) {
-    #   print(dat[['cropHintsAnnotation']][['cropHints']])
-    #   crop_hints <- parse_crop_hints(dat$cropHintsAnnotation$cropHints[[1]], img_id)
-    #   data_frames$crop_hints <- bind_rows(data_frames$crop_hints, crop_hints)
-    # }
+     if (!is.null(dat[['cropHintsAnnotation']][['cropHints']])) {
+       crop_hints <- parse_crop_hints(dat$cropHintsAnnotation$cropHints, img_id)
+       data_frames$crop_hints <- bind_rows(data_frames$crop_hints, crop_hints)
+     }
 
   }
 

@@ -136,7 +136,7 @@
 <pre><code>##  [1] "labels"            "web_labels"        "web_similar"      
 ##  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
 ##  [7] "objects"           "logos"             "full_text"        
-## [10] "safe_search"       "colors"</code></pre>
+## [10] "safe_search"       "colors"            "crop_hints"</code></pre>
 <p>Once the features are converted to data frames, other R packages can be used to analyze the data. For instance, the <code>labels</code> data frame contains annotations about image content:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">img_labels &lt;-<span class="st"> </span>img_data<span class="op">$</span>labels</a>
 <a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(img_labels)</a></code></pre></div>

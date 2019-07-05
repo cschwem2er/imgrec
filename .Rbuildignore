@@ -1,3 +1,4 @@
+^CRAN-RELEASE$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 .travis.yml
@@ -5,5 +6,5 @@ README.Rmd
 ^LICENSE\.md$
 _pkgdown.yaml
 ^appveyor\.yml$
-docs/
+^docs$
 ^cran-comments\.md$

@@ -108,7 +108,7 @@ names(img_data) # all available features
 #>  [1] "labels"            "web_labels"        "web_similar"      
 #>  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
 #>  [7] "objects"           "logos"             "full_text"        
-#> [10] "safe_search"       "colors"
+#> [10] "safe_search"       "colors"            "crop_hints"
 ```
 
 Once the features are converted to data frames, other R packages can be

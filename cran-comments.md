@@ -9,4 +9,4 @@
 
 There were no ERRORS or WARNINGS.
 
-There was one note regarding the width of a line exceeding 100 characters. In that case, this is due to using a (necessary) long url string in one example. This could be solved be using url shorteners, but I prefer not use a shortener because users would not be able to see what link would be loaded in the first place.
+There were two notes regarding the width of a line exceeding 100 characters and the use of non-generic URL's. I shortened the corresponding line and fixed the URL's accordingly.

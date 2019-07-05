@@ -21,7 +21,7 @@
 #'  gvision_init()
 #'
 #'  # one image url
-#'  sw_image <- 'https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg'
+#'  sw_image <- 'https://upload.wikimedia.org/wikipedia/en/4/40/Star_Wars_Phantom_Menace_poster.jpg'
 #'  results <- get_annotations(images = sw_image, # image character vector
 #'                            features = 'all', # request all available features
 #'                            max_res = 10, # maximum number of results per feature

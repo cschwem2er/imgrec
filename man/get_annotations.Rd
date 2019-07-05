@@ -39,7 +39,7 @@ Calls the 'Google Vision' API to return annotations. The function automatically 
 
  input_imgs <- c(sw_image, finn_image, padme_image)
  results <- get_annotations(images = input_imgs,
-            features = c('labels', 'faces'), max_res = 5, mode = 'url')
+            features = c('label', 'face'), max_res = 5, mode = 'url')
             
  # one local image
  temp_img_path <- tempfile(fileext = '.png')

@@ -1,6 +1,6 @@
 Package: imgrec
 Type: Package
-Title: Image Recognition with R
+Title: Image Recognition
 Version: 0.1.0
 Date: 2019-07-05
 Authors@R: person("Carsten", "Schwemmer", email = "c.schwem2er@gmail.com", comment = c(ORCID = "0000-0001-9084-946X"), role = c("aut", "cre"))

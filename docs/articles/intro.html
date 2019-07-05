@@ -98,7 +98,7 @@
 <div id="how-to-install" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-to-install" class="anchor"></a>How to Install</h2>
-<p>You can download and install the latest development version of the app with the devtools package by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github('cschwem2er/imgrec')</a></code>.</p>
+<p>You can download and install the latest development version of the app with the devtools package by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github('cschwem2er/imgrec')</a></code>.</p>
 <p>For Windows users installing from github requires proper setup of <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>, for which a tutorial is available <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows">here</a>.</p>
 <p>At the moment, <code>imgrec</code> is not yet available on CRAN, but a submission is being prepared.</p>
 </div>
@@ -113,7 +113,7 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(imgrec)</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="../reference/gvision_init.html">gvision_init</a></span>()</a></code></pre></div>
 <pre><code>## Succesfully initialized authentification credentials.</code></pre>
-<p>In order to avoid calling <code>Sys.setenv</code>, you can permanently store the API key in your <code>.Renviron</code>. I recommend <code><a href="https://www.rdocumentation.org/packages/usethis/topics/edit">usethis::edit_r_environ()</a></code> to find and edit your environment file.</p>
+<p>In order to avoid calling <code>Sys.setenv</code>, you can permanently store the API key in your <code>.Renviron</code>. I recommend <code><a href="https://usethis.r-lib.org/reference/edit.html">usethis::edit_r_environ()</a></code> to find and edit your environment file.</p>
 </div>
 <div id="image-annotations" class="section level3">
 <h3 class="hasAnchor">
@@ -136,7 +136,7 @@
 <pre><code>##  [1] "labels"            "web_labels"        "web_similar"      
 ##  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
 ##  [7] "objects"           "logos"             "full_text"        
-## [10] "safe_search"       "colors"            "crop_hints"</code></pre>
+## [10] "safe_search"       "colors"</code></pre>
 <p>Once the features are converted to data frames, other R packages can be used to analyze the data. For instance, the <code>labels</code> data frame contains annotations about image content:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">img_labels &lt;-<span class="st"> </span>img_data<span class="op">$</span>labels</a>
 <a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(img_labels)</a></code></pre></div>
@@ -186,24 +186,23 @@
 </tr>
 </tbody>
 </table>
-<p>Imgrec also extracts bounding polygons for logos, objects, faces and landmarks. We can for instance visualize all recognized logos of the Star Wars movie poster with <a href="https://cran.r-project.org/web/packages/magick/index.html">magick</a> and <a href="https://cran.r-project.org/web/packages/ggplot2/index.html">ggplot2</a>:</p>
+<p>Imgrec also extracts bounding polygons for logos, objects, faces and landmarks. We can for instance visualize all recognized logos of the Star Wars movie poster with <a href="https://CRAN.R-project.org/package=magick">magick</a> and <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a>:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(magick)</a></code></pre></div>
-<pre><code>## Warning: package 'magick' was built under R version 3.5.3</code></pre>
 <pre><code>## Linking to ImageMagick 6.9.9.14
 ## Enabled features: cairo, freetype, fftw, ghostscript, lcms, pango, rsvg, webp
 ## Disabled features: fontconfig, x11</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb13-2" title="2"></a>
-<a class="sourceLine" id="cb13-3" title="3">img &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/magick/topics/editing">image_read</a></span>(sw_image) </a>
-<a class="sourceLine" id="cb13-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/magick/topics/image_ggplot">image_ggplot</a></span>(img) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb13-5" title="5"><span class="st">   </span><span class="kw">geom_rect</span>(<span class="dt">data =</span> img_data<span class="op">$</span>logos, </a>
-<a class="sourceLine" id="cb13-6" title="6">          <span class="kw">aes</span>(<span class="dt">xmin =</span> poly_x_min, <span class="dt">xmax =</span> poly_x_max, </a>
-<a class="sourceLine" id="cb13-7" title="7">              <span class="dt">ymin =</span> poly_y_min, <span class="dt">ymax =</span> poly_y_max),</a>
-<a class="sourceLine" id="cb13-8" title="8">              <span class="dt">color =</span> <span class="st">'yellow'</span>, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">linetype =</span> <span class="st">'dashed'</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb13-9" title="9"><span class="st">   </span><span class="kw">geom_text</span>(<span class="dt">data =</span> img_data<span class="op">$</span>logos, </a>
-<a class="sourceLine" id="cb13-10" title="10">          <span class="kw">aes</span>(<span class="dt">x =</span>poly_x_max, <span class="dt">y =</span> poly_y_max, <span class="dt">label =</span> description),</a>
-<a class="sourceLine" id="cb13-11" title="11">              <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">color =</span> <span class="st">"yellow"</span>, <span class="dt">vjust =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb13-12" title="12"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">"none"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a></code></pre></div>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.5.2</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">img &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/magick/topics/editing">image_read</a></span>(sw_image) </a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/magick/topics/image_ggplot">image_ggplot</a></span>(img) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="st">   </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span>(<span class="dt">data =</span> img_data<span class="op">$</span>logos, </a>
+<a class="sourceLine" id="cb14-4" title="4">          <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">xmin =</span> poly_x_min, <span class="dt">xmax =</span> poly_x_max, </a>
+<a class="sourceLine" id="cb14-5" title="5">              <span class="dt">ymin =</span> poly_y_min, <span class="dt">ymax =</span> poly_y_max),</a>
+<a class="sourceLine" id="cb14-6" title="6">              <span class="dt">color =</span> <span class="st">'yellow'</span>, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">linetype =</span> <span class="st">'dashed'</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-7" title="7"><span class="st">   </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span>(<span class="dt">data =</span> img_data<span class="op">$</span>logos, </a>
+<a class="sourceLine" id="cb14-8" title="8">          <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span>poly_x_max, <span class="dt">y =</span> poly_y_max, <span class="dt">label =</span> description),</a>
+<a class="sourceLine" id="cb14-9" title="9">              <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">color =</span> <span class="st">"yellow"</span>, <span class="dt">vjust =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-10" title="10"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">legend.position=</span><span class="st">"none"</span>)</a></code></pre></div>
 <p><img src="intro_files/figure-html/unnamed-chunk-9-1.png" width="351.36"></p>
 <p>Additional functions for feature analysis are currently in development.</p>
 </div>

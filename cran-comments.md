@@ -9,4 +9,4 @@
 
 There were no ERRORS or WARNINGS.
 
-There were two notes regarding the width of a line exceeding 100 characters and the use of non-generic URL's. I shortened the corresponding line and fixed the URL's accordingly.
+There was a note regarding the use of non-generic URL's. I shortened the corresponding line and fixed the URL's accordingly. As suggested, I also removed the redundant "with R" from the title.

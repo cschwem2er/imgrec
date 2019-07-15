@@ -14,22 +14,21 @@ knitr::opts_chunk$set(purl = LOCAL)
 
 ## imgrec - image recognition with R
 
-Imgrec provides an interface for image recognition using the [Google Vision API](https://cloud.google.com/vision/). It includes functions to convert data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.
+*imgrec* provides an interface for image recognition using the [Google Vision API](https://cloud.google.com/vision/). It includes functions to convert data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.
 
 ## How to Install
 
-You can download and install the latest development version of the app with the devtools package by running ``devtools::install_github('cschwem2er/imgrec')``.    
+You can download and install the latest development version with the devtools package by running ``devtools::install_github('cschwem2er/imgrec')``.    
 
 For Windows users installing from github requires proper setup of [Rtools](https://cran.r-project.org/bin/windows/Rtools/), for which a tutorial is available [here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows).
 
-At the moment, `imgrec` is not yet available on CRAN, but a submission is being prepared.
-
+The package can also be installed from CRAN by running `install.packages('imgrec')`.
 
 ## How to Use
 
 ### Authentification
 
-Before loading `imgrec` you first need to initiate your authentification credentials. You need an API key from a Google Project with access permission for the Google Vision API. For this, you can first create a project using the Google Cloud platform. The setup process is explained in the API [documentation](https://cloud.google.com/vision/docs/before-you-begin). You will probably need to enable billing, but depending on your feature selection up to 1000 requests per month are free (see [pricing](https://cloud.google.com/vision/pricing)). Next following the [instructions](https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key) for creating an API key.  Finally, the API key needs to be set as environment variable before using the initialization function `gvision_init()`:
+Before loading *imgrec* you first need to initiate your authentification credentials. You need an API key from a Google Project with access permission for the Google Vision API. For this, you can first create a project using the Google Cloud platform. The setup process is explained in the API [documentation](https://cloud.google.com/vision/docs/before-you-begin). You will probably need to enable billing, but depending on your feature selection up to 1000 requests per month are free (see [pricing](https://cloud.google.com/vision/pricing)). Next following the [instructions](https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key) for creating an API key.  Finally, the API key needs to be set as environment variable before using the initialization function `gvision_init()`:
 
 
 ```{r, eval = FALSE}
@@ -88,7 +87,7 @@ knitr::kable(head(img_labels))
 
 
 
-Imgrec also extracts bounding polygons for logos, objects, faces and landmarks. We can for instance visualize all recognized logos of the Star Wars movie poster with  [magick](https://CRAN.R-project.org/package=magick) and [ggplot2](https://CRAN.R-project.org/package=ggplot2):
+*imgrec* also extracts bounding polygons for logos, objects, faces and landmarks. We can for instance visualize all recognized logos of the Star Wars movie poster with  [magick](https://CRAN.R-project.org/package=magick) and [ggplot2](https://CRAN.R-project.org/package=ggplot2):
 
 
 ```{r, fig.height=5.36, fig.width=3.66, eval = LOCAL}

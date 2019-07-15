@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Recognition • imgrec</title>
+<title>An Interface for Image Recognition • imgrec</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Image Recognition">
+<script src="pkgdown.js"></script><meta property="og:title" content="An Interface for Image Recognition">
 <meta property="og:description" content="Provides an interface for image recognition using the 'Google Vision API' &lt;https://cloud.google.com/vision/&gt; .  Converts API data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -91,14 +91,14 @@
 <div id="image-recognition-with-r" class="section level2">
 <h2 class="hasAnchor">
 <a href="#image-recognition-with-r" class="anchor"></a>Image Recognition with R</h2>
-<p>Imgrec provides an interface for image recognition using the <a href="https://cloud.google.com/vision/">Google Vision API</a>. It includes functions to convert data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.</p>
+<p><em>imgrec</em> provides an interface for image recognition using the <a href="https://cloud.google.com/vision/">Google Vision API</a>. It includes functions to convert data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.</p>
 </div>
 <div id="how-to-install" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-to-install" class="anchor"></a>How to Install</h2>
-<p>You can download and install the latest development version of the app with the devtools package by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github('cschwem2er/imgrec')</a></code>.</p>
+<p>You can download and install the latest development version of imgrec with the devtools package by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github('cschwem2er/imgrec')</a></code>.</p>
 <p>For Windows users installing from github requires proper setup of <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>, for which a tutorial is available <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows">here</a>.</p>
-<p>At the moment, <code>imgrec</code> is not yet available on CRAN, but a submission is being prepared.</p>
+<p>The package can also be installed from CRAN by running <code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages('imgrec')</a></code>.</p>
 </div>
 <div id="how-to-use" class="section level2">
 <h2 class="hasAnchor">
@@ -106,7 +106,7 @@
 <div id="authentification" class="section level3">
 <h3 class="hasAnchor">
 <a href="#authentification" class="anchor"></a>Authentification</h3>
-<p>Before loading <code>imgrec</code> you first need to initiate your authentification credentials. You need an API key from a Google Project with access permission for the Google Vision API. For this, you can first create a project using the Google Cloud platform. The setup process is explained in the API <a href="https://cloud.google.com/vision/docs/before-you-begin">documentation</a>. You will probably need to enable billing, but depending on your feature selection up to 1000 requests per month are free (see <a href="https://cloud.google.com/vision/pricing">pricing</a>). Next following the <a href="https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key">instructions</a> for creating an API key. Finally, the API key needs to be set as environment variable before using the initialization function <code><a href="reference/gvision_init.html">gvision_init()</a></code>:</p>
+<p>Before loading <em>imgrec</em> you first need to initiate your authentification credentials. You need an API key from a Google Project with access permission for the Google Vision API. For this, you can first create a project using the Google Cloud platform. The setup process is explained in the API <a href="https://cloud.google.com/vision/docs/before-you-begin">documentation</a>. You will probably need to enable billing, but depending on your feature selection up to 1000 requests per month are free (see <a href="https://cloud.google.com/vision/pricing">pricing</a>). Next following the <a href="https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key">instructions</a> for creating an API key. Finally, the API key needs to be set as environment variable before using the initialization function <code><a href="reference/gvision_init.html">gvision_init()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.setenv">Sys.setenv</a></span>(<span class="dt">gvision_key =</span> <span class="st">"Your Google Vision API key"</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(imgrec)</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="reference/gvision_init.html">gvision_init</a></span>()</a>
@@ -133,7 +133,7 @@
 <a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt;  [1] "labels"            "web_labels"        "web_similar"      </span></a>
 <a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt;  [4] "web_match_partial" "web_match_full"    "web_match_pages"  </span></a>
 <a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt;  [7] "objects"           "logos"             "full_text"        </span></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt; [10] "safe_search"       "colors"</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt; [10] "safe_search"       "colors"            "crop_hints"</span></a></code></pre></div>
 <p>Once the features are converted to data frames, other R packages can be used to analyze the data. For instance, the <code>labels</code> data frame contains annotations about image content:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">img_labels &lt;-<span class="st"> </span>img_data<span class="op">$</span>labels</a>
 <a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(img_labels)</a></code></pre></div>
@@ -204,7 +204,7 @@
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
-<p>If you use imgrec for your publications please consider citing it:</p>
+<p>If you use <em>imgrec</em> for your publications please consider citing it:</p>
 <pre><code>  Carsten Schwemmer (2019). imgrec: Image recognition with R. R package version 0.1.0.
   https://github.com/cschwem2er/imgrec</code></pre>
 <p>A BibTeX entry for LaTeX users is:</p>
@@ -223,6 +223,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=imgrec">https://​cloud.r-project.org/​package=imgrec</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/cschwem2er/imgrec">https://​github.com/​cschwem2er/​imgrec</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/cschwem2er/imgrec/issues">https://​github.com/​cschwem2er/​imgrec/​issues</a>
@@ -250,6 +252,7 @@
 <li><a href="https://travis-ci.org/cschwem2er/imgrec"><img src="https://travis-ci.org/cschwem2er/imgrec.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/cschwem2er/imgrec"><img src="https://ci.appveyor.com/api/projects/status/github/cschwem2er/imgrec?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://cran.r-project.org/package=imgrec"><img src="https://www.r-pkg.org/badges/version/imgrec" alt="CRAN status"></a></li>
+<li><a href="https://cran.rstudio.com/web/packages/imgrec/index.html"><img src="https://cranlogs.r-pkg.org/badges/grand-total/imgrec" alt="CRAN downloads"></a></li>
 </ul>
 </div>
 </div>

@@ -93,14 +93,14 @@
 <div id="imgrec---image-recognition-with-r" class="section level2">
 <h2 class="hasAnchor">
 <a href="#imgrec---image-recognition-with-r" class="anchor"></a>imgrec - image recognition with R</h2>
-<p>Imgrec provides an interface for image recognition using the <a href="https://cloud.google.com/vision/">Google Vision API</a>. It includes functions to convert data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.</p>
+<p><em>imgrec</em> provides an interface for image recognition using the <a href="https://cloud.google.com/vision/">Google Vision API</a>. It includes functions to convert data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.</p>
 </div>
 <div id="how-to-install" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-to-install" class="anchor"></a>How to Install</h2>
-<p>You can download and install the latest development version of the app with the devtools package by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github('cschwem2er/imgrec')</a></code>.</p>
+<p>You can download and install the latest development version with the devtools package by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github('cschwem2er/imgrec')</a></code>.</p>
 <p>For Windows users installing from github requires proper setup of <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>, for which a tutorial is available <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows">here</a>.</p>
-<p>At the moment, <code>imgrec</code> is not yet available on CRAN, but a submission is being prepared.</p>
+<p>The package can also be installed from CRAN by running <code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages('imgrec')</a></code>.</p>
 </div>
 <div id="how-to-use" class="section level2">
 <h2 class="hasAnchor">
@@ -108,7 +108,7 @@
 <div id="authentification" class="section level3">
 <h3 class="hasAnchor">
 <a href="#authentification" class="anchor"></a>Authentification</h3>
-<p>Before loading <code>imgrec</code> you first need to initiate your authentification credentials. You need an API key from a Google Project with access permission for the Google Vision API. For this, you can first create a project using the Google Cloud platform. The setup process is explained in the API <a href="https://cloud.google.com/vision/docs/before-you-begin">documentation</a>. You will probably need to enable billing, but depending on your feature selection up to 1000 requests per month are free (see <a href="https://cloud.google.com/vision/pricing">pricing</a>). Next following the <a href="https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key">instructions</a> for creating an API key. Finally, the API key needs to be set as environment variable before using the initialization function <code><a href="../reference/gvision_init.html">gvision_init()</a></code>:</p>
+<p>Before loading <em>imgrec</em> you first need to initiate your authentification credentials. You need an API key from a Google Project with access permission for the Google Vision API. For this, you can first create a project using the Google Cloud platform. The setup process is explained in the API <a href="https://cloud.google.com/vision/docs/before-you-begin">documentation</a>. You will probably need to enable billing, but depending on your feature selection up to 1000 requests per month are free (see <a href="https://cloud.google.com/vision/pricing">pricing</a>). Next following the <a href="https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key">instructions</a> for creating an API key. Finally, the API key needs to be set as environment variable before using the initialization function <code><a href="../reference/gvision_init.html">gvision_init()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.setenv">Sys.setenv</a></span>(<span class="dt">gvision_key =</span> <span class="st">"Your Google Vision API key"</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(imgrec)</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="../reference/gvision_init.html">gvision_init</a></span>()</a></code></pre></div>
@@ -136,7 +136,7 @@
 <pre><code>##  [1] "labels"            "web_labels"        "web_similar"      
 ##  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
 ##  [7] "objects"           "logos"             "full_text"        
-## [10] "safe_search"       "colors"</code></pre>
+## [10] "safe_search"       "colors"            "crop_hints"</code></pre>
 <p>Once the features are converted to data frames, other R packages can be used to analyze the data. For instance, the <code>labels</code> data frame contains annotations about image content:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">img_labels &lt;-<span class="st"> </span>img_data<span class="op">$</span>labels</a>
 <a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(img_labels)</a></code></pre></div>
@@ -186,7 +186,7 @@
 </tr>
 </tbody>
 </table>
-<p>Imgrec also extracts bounding polygons for logos, objects, faces and landmarks. We can for instance visualize all recognized logos of the Star Wars movie poster with <a href="https://CRAN.R-project.org/package=magick">magick</a> and <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a>:</p>
+<p><em>imgrec</em> also extracts bounding polygons for logos, objects, faces and landmarks. We can for instance visualize all recognized logos of the Star Wars movie poster with <a href="https://CRAN.R-project.org/package=magick">magick</a> and <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a>:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(magick)</a></code></pre></div>
 <pre><code>## Linking to ImageMagick 6.9.9.14
 ## Enabled features: cairo, freetype, fftw, ghostscript, lcms, pango, rsvg, webp

@@ -17,25 +17,26 @@ knitr::opts_chunk$set(
 [![Travis-CI Build Status](https://travis-ci.org/cschwem2er/imgrec.svg?branch=master)](https://travis-ci.org/cschwem2er/imgrec)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/cschwem2er/imgrec?branch=master&svg=true)](https://ci.appveyor.com/project/cschwem2er/imgrec)
 [![CRAN status](https://www.r-pkg.org/badges/version/imgrec)](https://cran.r-project.org/package=imgrec)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/imgrec)](https://cran.rstudio.com/web/packages/imgrec/index.html)
 
 ## Image Recognition with R
 
-Imgrec provides an interface for image recognition using the [Google Vision API](https://cloud.google.com/vision/). It includes functions to convert data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.
+*imgrec* provides an interface for image recognition using the [Google Vision API](https://cloud.google.com/vision/). It includes functions to convert data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.
 
 ## How to Install
 
-You can download and install the latest development version of the app with the devtools package by running ``devtools::install_github('cschwem2er/imgrec')``.    
+You can download and install the latest development version of imgrec with the devtools package by running ``devtools::install_github('cschwem2er/imgrec')``.    
 
 For Windows users installing from github requires proper setup of [Rtools](https://cran.r-project.org/bin/windows/Rtools/), for which a tutorial is available [here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows).
 
-At the moment, `imgrec` is not yet available on CRAN, but a submission is being prepared.
+The package can also be installed from CRAN by running `install.packages('imgrec')`.
 
 
 ## How to Use
 
 ### Authentification
 
-Before loading `imgrec` you first need to initiate your authentification credentials. You need an API key from a Google Project with access permission for the Google Vision API. For this, you can first create a project using the Google Cloud platform. The setup process is explained in the API [documentation](https://cloud.google.com/vision/docs/before-you-begin). You will probably need to enable billing, but depending on your feature selection up to 1000 requests per month are free (see [pricing](https://cloud.google.com/vision/pricing)). Next following the [instructions](https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key) for creating an API key.  Finally, the API key needs to be set as environment variable before using the initialization function `gvision_init()`:
+Before loading *imgrec* you first need to initiate your authentification credentials. You need an API key from a Google Project with access permission for the Google Vision API. For this, you can first create a project using the Google Cloud platform. The setup process is explained in the API [documentation](https://cloud.google.com/vision/docs/before-you-begin). You will probably need to enable billing, but depending on your feature selection up to 1000 requests per month are free (see [pricing](https://cloud.google.com/vision/pricing)). Next following the [instructions](https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key) for creating an API key.  Finally, the API key needs to be set as environment variable before using the initialization function `gvision_init()`:
 
 ```{r, eval = FALSE}
 Sys.setenv(gvision_key = "Your Google Vision API key")
@@ -51,7 +52,7 @@ In order to avoid calling `Sys.setenv`, you can permanently store the API key in
 
 ### Image annotations
 
-Google Vision accepts common file types such as JPG, PNG, or BMP.  Images can be passed to the function `get_annotations`, either as url strings or file paths to local images. In the following example,  `get_annotations` is used to retrieve annotations for a poster of the Star Wars movie [The Force Awakens](https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens).
+Google Vision accepts common file types such as JPG, PNG, or BMP. Images can be passed to the function `get_annotations`, either as url strings or file paths to local images. In the following example,  `get_annotations` is used to retrieve annotations for a poster of the Star Wars movie [The Force Awakens](https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens).
 
 <img src='https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg' width='250'>
 
@@ -118,7 +119,7 @@ Additional functions for feature analysis are currently in development.
 ## Citation
 
 
-If you use imgrec for your publications please consider citing it:
+If you use *imgrec* for your publications please consider citing it:
 
 
 ```

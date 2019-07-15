@@ -9,10 +9,12 @@ Status](https://travis-ci.org/cschwem2er/imgrec.svg?branch=master)](https://trav
 Status](https://ci.appveyor.com/api/projects/status/github/cschwem2er/imgrec?branch=master&svg=true)](https://ci.appveyor.com/project/cschwem2er/imgrec)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/imgrec)](https://cran.r-project.org/package=imgrec)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/imgrec)](https://cran.rstudio.com/web/packages/imgrec/index.html)
 
 ## Image Recognition with R
 
-Imgrec provides an interface for image recognition using the [Google
+*imgrec* provides an interface for image recognition using the [Google
 Vision API](https://cloud.google.com/vision/). It includes functions to
 convert data for features such as object detection and optical character
 recognition to data frames. The package also includes functions for
@@ -20,7 +22,7 @@ analyzing image annotations.
 
 ## How to Install
 
-You can download and install the latest development version of the app
+You can download and install the latest development version of imgrec
 with the devtools package by running
 `devtools::install_github('cschwem2er/imgrec')`.
 
@@ -29,14 +31,14 @@ For Windows users installing from github requires proper setup of
 tutorial is available
 [here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows).
 
-At the moment, `imgrec` is not yet available on CRAN, but a submission
-is being prepared.
+The package can also be installed from CRAN by running
+`install.packages('imgrec')`.
 
 ## How to Use
 
 ### Authentification
 
-Before loading `imgrec` you first need to initiate your authentification
+Before loading *imgrec* you first need to initiate your authentification
 credentials. You need an API key from a Google Project with access
 permission for the Google Vision API. For this, you can first create a
 project using the Google Cloud platform. The setup process is explained
@@ -108,7 +110,7 @@ names(img_data) # all available features
 #>  [1] "labels"            "web_labels"        "web_similar"      
 #>  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
 #>  [7] "objects"           "logos"             "full_text"        
-#> [10] "safe_search"       "colors"
+#> [10] "safe_search"       "colors"            "crop_hints"
 ```
 
 Once the features are converted to data frames, other R packages can be
@@ -156,7 +158,7 @@ Additional functions for feature analysis are currently in development.
 
 ## Citation
 
-If you use imgrec for your publications please consider citing
+If you use *imgrec* for your publications please consider citing
 it:
 
 ``` 

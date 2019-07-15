@@ -2,7 +2,7 @@
 % Please edit documentation in R/save_json.R
 \name{save_json}
 \alias{save_json}
-\title{ave annotation data as JSON}
+\title{save annotation data as JSON}
 \usage{
 save_json(annotations, file)
 }

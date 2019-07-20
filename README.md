@@ -58,7 +58,6 @@ Sys.setenv(gvision_key = "Your Google Vision API key")
 
 ``` r
 library(imgrec)
-#> Warning: package 'imgrec' was built under R version 3.5.3
 gvision_init()
 #> Succesfully initialized authentification credentials.
 ```

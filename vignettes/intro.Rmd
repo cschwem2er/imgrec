@@ -35,7 +35,7 @@ Before loading *imgrec* you first need to initiate your authentification credent
 Sys.setenv(gvision_key = "Your Google Vision API key")
 ```
 
-```{r, eval = LOCAL}
+```{r eval=LOCAL, warning=FALSE}
 library(imgrec)
 gvision_init()
 ```

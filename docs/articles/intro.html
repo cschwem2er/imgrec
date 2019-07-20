@@ -92,13 +92,13 @@
     
 <div id="imgrec---image-recognition-with-r" class="section level2">
 <h2 class="hasAnchor">
-<a href="#imgrec---image-recognition-with-r" class="anchor"></a>imgrec - image recognition with R</h2>
+<a href="#imgrec---image-recognition-with-r" class="anchor"></a>imgrec - Image Recognition with R</h2>
 <p><em>imgrec</em> provides an interface for image recognition using the <a href="https://cloud.google.com/vision/">Google Vision API</a>. It includes functions to convert data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.</p>
 </div>
 <div id="how-to-install" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-to-install" class="anchor"></a>How to Install</h2>
-<p>You can download and install the latest development version with the devtools package by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github('cschwem2er/imgrec')</a></code>.</p>
+<p>You can download and install the latest development version with the devtools package by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github('cschwem2er/imgrec')</a></code>.</p>
 <p>For Windows users installing from github requires proper setup of <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>, for which a tutorial is available <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows">here</a>.</p>
 <p>The package can also be installed from CRAN by running <code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages('imgrec')</a></code>.</p>
 </div>
@@ -110,8 +110,9 @@
 <a href="#authentification" class="anchor"></a>Authentification</h3>
 <p>Before loading <em>imgrec</em> you first need to initiate your authentification credentials. You need an API key from a Google Project with access permission for the Google Vision API. For this, you can first create a project using the Google Cloud platform. The setup process is explained in the API <a href="https://cloud.google.com/vision/docs/before-you-begin">documentation</a>. You will probably need to enable billing, but depending on your feature selection up to 1000 requests per month are free (see <a href="https://cloud.google.com/vision/pricing">pricing</a>). Next following the <a href="https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key">instructions</a> for creating an API key. Finally, the API key needs to be set as environment variable before using the initialization function <code><a href="../reference/gvision_init.html">gvision_init()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.setenv">Sys.setenv</a></span>(<span class="dt">gvision_key =</span> <span class="st">"Your Google Vision API key"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(imgrec)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="../reference/gvision_init.html">gvision_init</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(imgrec)</a></code></pre></div>
+<pre><code>## Warning: package 'imgrec' was built under R version 3.5.3</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/gvision_init.html">gvision_init</a></span>()</a></code></pre></div>
 <pre><code>## Succesfully initialized authentification credentials.</code></pre>
 <p>In order to avoid calling <code>Sys.setenv</code>, you can permanently store the API key in your <code>.Renviron</code>. I recommend <code><a href="https://usethis.r-lib.org/reference/edit.html">usethis::edit_r_environ()</a></code> to find and edit your environment file.</p>
 </div>
@@ -120,26 +121,26 @@
 <a href="#image-annotations" class="anchor"></a>Image annotations</h3>
 <p>Google Vision accepts common file types such as JPG, PNG, or BMP. Images can be passed to several <code>get_annotations</code>, either as url strings or file paths to local images. In the following example, <code>get_annotations</code> is used to retrieve annotations for a poster of the Star Wars movie <a href="https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens">The Force Awakens</a>.</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" width="250"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">sw_image &lt;-<span class="st"> 'https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg'</span></a>
-<a class="sourceLine" id="cb4-2" title="2">results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_annotations.html">get_annotations</a></span>(<span class="dt">images =</span> sw_image, <span class="co"># image character vector</span></a>
-<a class="sourceLine" id="cb4-3" title="3">                           <span class="dt">features =</span> <span class="st">'all'</span>, <span class="co"># request all available features</span></a>
-<a class="sourceLine" id="cb4-4" title="4">                           <span class="dt">max_res =</span> <span class="dv">5</span>, <span class="co"># maximum number of results per feature</span></a>
-<a class="sourceLine" id="cb4-5" title="5">                           <span class="dt">mode =</span> <span class="st">'url'</span>) <span class="co"># determine image type</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">sw_image &lt;-<span class="st"> 'https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg'</span></a>
+<a class="sourceLine" id="cb6-2" title="2">results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_annotations.html">get_annotations</a></span>(<span class="dt">images =</span> sw_image, <span class="co"># image character vector</span></a>
+<a class="sourceLine" id="cb6-3" title="3">                           <span class="dt">features =</span> <span class="st">'all'</span>, <span class="co"># request all available features</span></a>
+<a class="sourceLine" id="cb6-4" title="4">                           <span class="dt">max_res =</span> <span class="dv">5</span>, <span class="co"># maximum number of results per feature</span></a>
+<a class="sourceLine" id="cb6-5" title="5">                           <span class="dt">mode =</span> <span class="st">'url'</span>) <span class="co"># determine image type</span></a></code></pre></div>
 <pre><code>## [1] "Sending API request(s).."</code></pre>
 <p>The function returns a response object from the Google Vision API. It also recognizes if a user passes a character vector with multiple images. In this case, request batches are created automatically to reduce the number of required calls to the API.</p>
 <p>After retrieving annotations, raw data can be stored in an UTF-8 encoded <a href="https://en.wikipedia.org/wiki/JSON">JSON</a> file:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">temp_file_path &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempfile</a></span>(<span class="dt">fileext =</span> <span class="st">'.json'</span>)</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="../reference/save_json.html">save_json</a></span>(results, temp_file_path)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">temp_file_path &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempfile</a></span>(<span class="dt">fileext =</span> <span class="st">'.json'</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="../reference/save_json.html">save_json</a></span>(results, temp_file_path)</a></code></pre></div>
 <p>While some users might prefer to work with raw <code>.json</code> data, which includes every single detail returned by the API, the structure is quite complex and deeply nested. To simplify the data, <code>parse_annotations</code> converts most of the features to data frames. For each feature, the original identifier of each image is included as <code>img_id</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">img_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/parse_annotations.html">parse_annotations</a></span>(results) <span class="co"># returns list of data frames</span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(img_data) <span class="co"># all available features</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">img_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/parse_annotations.html">parse_annotations</a></span>(results) <span class="co"># returns list of data frames</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(img_data) <span class="co"># all available features</span></a></code></pre></div>
 <pre><code>##  [1] "labels"            "web_labels"        "web_similar"      
 ##  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
 ##  [7] "objects"           "logos"             "full_text"        
 ## [10] "safe_search"       "colors"            "crop_hints"</code></pre>
 <p>Once the features are converted to data frames, other R packages can be used to analyze the data. For instance, the <code>labels</code> data frame contains annotations about image content:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">img_labels &lt;-<span class="st"> </span>img_data<span class="op">$</span>labels</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(img_labels)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">img_labels &lt;-<span class="st"> </span>img_data<span class="op">$</span>labels</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(img_labels)</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">mid</th>
@@ -187,40 +188,44 @@
 </tbody>
 </table>
 <p><em>imgrec</em> also extracts bounding polygons for logos, objects, faces and landmarks. We can for instance visualize all recognized logos of the Star Wars movie poster with <a href="https://CRAN.R-project.org/package=magick">magick</a> and <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(magick)</a></code></pre></div>
-<pre><code>## Linking to ImageMagick 6.9.9.14
-## Enabled features: cairo, freetype, fftw, ghostscript, lcms, pango, rsvg, webp
-## Disabled features: fontconfig, x11</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a></code></pre></div>
-<pre><code>## Warning: package 'ggplot2' was built under R version 3.5.2</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">img &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/magick/topics/editing">image_read</a></span>(sw_image) </a>
-<a class="sourceLine" id="cb14-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/magick/topics/image_ggplot">image_ggplot</a></span>(img) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="st">   </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span>(<span class="dt">data =</span> img_data<span class="op">$</span>logos, </a>
-<a class="sourceLine" id="cb14-4" title="4">          <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">xmin =</span> poly_x_min, <span class="dt">xmax =</span> poly_x_max, </a>
-<a class="sourceLine" id="cb14-5" title="5">              <span class="dt">ymin =</span> poly_y_min, <span class="dt">ymax =</span> poly_y_max),</a>
-<a class="sourceLine" id="cb14-6" title="6">              <span class="dt">color =</span> <span class="st">'yellow'</span>, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">linetype =</span> <span class="st">'dashed'</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-7" title="7"><span class="st">   </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span>(<span class="dt">data =</span> img_data<span class="op">$</span>logos, </a>
-<a class="sourceLine" id="cb14-8" title="8">          <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span>poly_x_max, <span class="dt">y =</span> poly_y_max, <span class="dt">label =</span> description),</a>
-<a class="sourceLine" id="cb14-9" title="9">              <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">color =</span> <span class="st">"yellow"</span>, <span class="dt">vjust =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-10" title="10"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">legend.position=</span><span class="st">"none"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(magick)</a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb12-3" title="3"></a>
+<a class="sourceLine" id="cb12-4" title="4">img &lt;-<span class="st"> </span><span class="kw">image_read</span>(sw_image) </a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="kw">image_ggplot</span>(img) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="st">   </span><span class="kw">geom_rect</span>(<span class="dt">data =</span> img_data<span class="op">$</span>logos, </a>
+<a class="sourceLine" id="cb12-7" title="7">          <span class="kw">aes</span>(<span class="dt">xmin =</span> poly_x_min, <span class="dt">xmax =</span> poly_x_max, </a>
+<a class="sourceLine" id="cb12-8" title="8">              <span class="dt">ymin =</span> poly_y_min, <span class="dt">ymax =</span> poly_y_max),</a>
+<a class="sourceLine" id="cb12-9" title="9">              <span class="dt">color =</span> <span class="st">'yellow'</span>, <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">linetype =</span> <span class="st">'dashed'</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-10" title="10"><span class="st">   </span><span class="kw">geom_text</span>(<span class="dt">data =</span> img_data<span class="op">$</span>logos, </a>
+<a class="sourceLine" id="cb12-11" title="11">          <span class="kw">aes</span>(<span class="dt">x =</span>poly_x_max, <span class="dt">y =</span> poly_y_max, <span class="dt">label =</span> description),</a>
+<a class="sourceLine" id="cb12-12" title="12">              <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">color =</span> <span class="st">"yellow"</span>, <span class="dt">vjust =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-13" title="13"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">"none"</span>)</a></code></pre></div>
 <p><img src="intro_files/figure-html/unnamed-chunk-9-1.png" width="351.36"></p>
+<p>Please note that for <em>object recognition</em> data, bounding polygons are relative to image dimensions. Therefore, you need to multiply them with image width (x) and height (y). These attributes are not returned by Google Vision, but can for instance be identified with <code><a href="https://www.rdocumentation.org/packages/magick/topics/attributes">magick::image_info()</a></code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">img_info &lt;-<span class="st"> </span><span class="kw">image_info</span>(img) </a>
+<a class="sourceLine" id="cb13-2" title="2">img_info</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 7
+##   format width height colorspace matte filesize density
+##   &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;    &lt;int&gt; &lt;chr&gt;  
+## 1 JPEG     220    322 sRGB       FALSE   136703 28x28</code></pre>
 <p>Additional functions for feature analysis are currently in development.</p>
 </div>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
-<p>If you use imgrec for your publications please consider citing it:</p>
-<pre><code>  Carsten Schwemmer (2019). imgrec: Image recognition with R. R package version 0.1.0.
-  https://github.com/cschwem2er/imgrec</code></pre>
+<p>Please cite imgrec if you use it for publications:</p>
+<pre><code>Carsten Schwemmer (2019). imgrec: Image Recognition. R package version 0.1.0.
+https://CRAN.R-project.org/package=imgrec</code></pre>
 <p>A BibTeX entry for LaTeX users is:</p>
-<pre><code>  @Manual{,
-    title = {imgrec: Image recognition with R},
-    author = {Carsten Schwemmer},
-    year = {2019},
-    note = {R package version 0.1.0},
-    url = {https://github.com/cschwem2er/imgrec},
-  }</code></pre>
+<pre><code>@Manual{,
+  title = {imgrec: Image Recognition},
+  author = {Carsten Schwemmer},
+  year = {2019},
+  note = {R package version 0.1.0},
+  url = {https://CRAN.R-project.org/package=imgrec},
+}</code></pre>
 </div>
   </div>
 
@@ -229,7 +234,7 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#imgrec---image-recognition-with-r">imgrec - image recognition with R</a></li>
+<li><a href="#imgrec---image-recognition-with-r">imgrec - Image Recognition with R</a></li>
       <li><a href="#how-to-install">How to Install</a></li>
       <li><a href="#how-to-use">How to Use</a></li>
       <li><a href="#citation">Citation</a></li>

@@ -58,6 +58,7 @@ Sys.setenv(gvision_key = "Your Google Vision API key")
 
 ``` r
 library(imgrec)
+#> Warning: package 'imgrec' was built under R version 3.5.3
 gvision_init()
 #> Succesfully initialized authentification credentials.
 ```
@@ -139,8 +140,10 @@ Star Wars movie poster with
 ``` r
 library(magick)
 library(ggplot2)
+img <- image_read(sw_image)
+```
 
-img <- image_read(sw_image) 
+``` r
 image_ggplot(img) + 
    geom_rect(data = img_data$logos, 
           aes(xmin = poly_x_min, xmax = poly_x_max, 
@@ -154,26 +157,37 @@ image_ggplot(img) +
 
 <img src="man/figures/sw_logo_rec.png" width="300">
 
+Please note that for *object recognition* data, bounding polygons are
+relative to image dimensions. Therefore, you need to multiply them with
+image width (x) and height (y). These attributes are not returned by
+Google Vision, but can for instance be identified with
+`magick::image_info()`:
+
+``` r
+img_info <- image_info(img) 
+img_info
+#> # A tibble: 1 x 7
+#>   format width height colorspace matte filesize density
+#>   <chr>  <int>  <int> <chr>      <lgl>    <int> <chr>  
+#> 1 JPEG     220    322 sRGB       FALSE   136703 28x28
+```
+
 Additional functions for feature analysis are currently in development.
 
 ## Citation
 
-If you use *imgrec* for your publications please consider citing
-it:
+Please cite *imgrec* if you use the package for
+    publications:
 
-``` 
-  Carsten Schwemmer (2019). imgrec: Image recognition with R. R package version 0.1.0.
-  https://github.com/cschwem2er/imgrec
-```
+    Carsten Schwemmer (2019). imgrec: Image Recognition. R package version 0.1.0.
+    https://CRAN.R-project.org/package=imgrec
 
 A BibTeX entry for LaTeX users is:
 
-``` 
-  @Manual{,
-    title = {imgrec: Image recognition with R},
-    author = {Carsten Schwemmer},
-    year = {2019},
-    note = {R package version 0.1.0},
-    url = {https://github.com/cschwem2er/imgrec},
-  }
-```
+    @Manual{,
+      title = {imgrec: Image Recognition},
+      author = {Carsten Schwemmer},
+      year = {2019},
+      note = {R package version 0.1.0},
+      url = {https://CRAN.R-project.org/package=imgrec},
+    }

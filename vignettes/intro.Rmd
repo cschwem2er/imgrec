@@ -12,7 +12,7 @@ LOCAL <- identical(Sys.getenv("LOCAL"), "true")
 knitr::opts_chunk$set(purl = LOCAL)
 ```
 
-## imgrec - image recognition with R
+## imgrec - Image Recognition with R
 
 *imgrec* provides an interface for image recognition using the [Google Vision API](https://cloud.google.com/vision/). It includes functions to convert data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.
 
@@ -90,7 +90,7 @@ knitr::kable(head(img_labels))
 *imgrec* also extracts bounding polygons for logos, objects, faces and landmarks. We can for instance visualize all recognized logos of the Star Wars movie poster with  [magick](https://CRAN.R-project.org/package=magick) and [ggplot2](https://CRAN.R-project.org/package=ggplot2):
 
 
-```{r, fig.height=5.36, fig.width=3.66, eval = LOCAL}
+```{r eval=LOCAL, fig.height=5.36, fig.width=3.66, message=FALSE, warning=FALSE}
 library(magick)
 library(ggplot2)
 
@@ -107,30 +107,36 @@ image_ggplot(img) +
 
 ```
 
+Please note that for *object recognition* data, bounding polygons are relative to image dimensions. Therefore, you need to multiply them with image width (x) and height (y). These attributes are not returned by Google Vision, but can for instance be identified with ``magick::image_info()``:
+
+```{r, eval=LOCAL}
+img_info <- image_info(img) 
+img_info
+```
 
 Additional functions for feature analysis are currently in development.
 
 ## Citation
 
 
-If you use imgrec for your publications please consider citing it:
+Please cite imgrec if you use it for publications:
 
 
 ```
-  Carsten Schwemmer (2019). imgrec: Image recognition with R. R package version 0.1.0.
-  https://github.com/cschwem2er/imgrec
+Carsten Schwemmer (2019). imgrec: Image Recognition. R package version 0.1.0.
+https://CRAN.R-project.org/package=imgrec
 ```
 
 A BibTeX entry for LaTeX users is:
 
 ```
-  @Manual{,
-    title = {imgrec: Image recognition with R},
-    author = {Carsten Schwemmer},
-    year = {2019},
-    note = {R package version 0.1.0},
-    url = {https://github.com/cschwem2er/imgrec},
-  }
+@Manual{,
+  title = {imgrec: Image Recognition},
+  author = {Carsten Schwemmer},
+  year = {2019},
+  note = {R package version 0.1.0},
+  url = {https://CRAN.R-project.org/package=imgrec},
+}
 ```
 
 

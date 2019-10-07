@@ -1,8 +1,8 @@
 Package: imgrec
 Type: Package
 Title: An Interface for Image Recognition
-Version: 0.1.0
-Date: 2019-07-05
+Version: 0.1.1
+Date: 2019-10-07
 Authors@R: person("Carsten", "Schwemmer", email = "c.schwem2er@gmail.com", comment = c(ORCID = "0000-0001-9084-946X"), role = c("aut", "cre"))
 URL: https://github.com/cschwem2er/imgrec
 BugReports: https://github.com/cschwem2er/imgrec/issues
@@ -12,16 +12,16 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Imports:
-    knitr (>= 1.2.0),
-    base64enc (>= 0.1.0),
+    knitr (>= 1.2),
+    base64enc (>= 0.1-0),
     dplyr (>= 0.7.0),
     httr (>= 1.4.0),
-    jsonlite (>= 1.6.0),
+    jsonlite (>= 1.6),
     rlang (>= 0.4.0)
 Suggests: 
-    magick (>= 2.0.0),
+    magick (>= 2.0),
     ggplot2 (>= 3.2.0),
     usethis (>= 1.5.0),
     pillar (>= 1.4.0),
-    rmarkdown (>= 1.1.0)
+    rmarkdown (>= 1.1)
 VignetteBuilder: knitr

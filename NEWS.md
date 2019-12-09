@@ -1,3 +1,10 @@
+
+# imgrec 0.1.2
+
+## Minor update
+
+* Added new vignette.
+
 # imgrec 0.1.1
 
 ## Minor update

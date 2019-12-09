@@ -29,7 +29,7 @@ with the devtools package by running
 For Windows users installing from github requires proper setup of
 [Rtools](https://cran.r-project.org/bin/windows/Rtools/), for which a
 tutorial is available
-[here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows).
+[here](https://github.com/stan-dev/rstan/wiki/Installing-RStan-from-source-on-Windows).
 
 The package can also be installed from CRAN by running
 `install.packages('imgrec')`.
@@ -147,7 +147,8 @@ image_ggplot(img) +
    geom_rect(data = img_data$logos, 
           aes(xmin = poly_x_min, xmax = poly_x_max, 
               ymin = poly_y_min, ymax = poly_y_max),
-              color = 'yellow', fill = NA, linetype = 'dashed', size = 2) +
+              color = 'yellow', fill = NA, linetype = 'dashed', size = 2,
+              inherit.aes = FALSE) +
    geom_text(data = img_data$logos, 
           aes(x =poly_x_max, y = poly_y_max, label = description),
               size = 8, color = "yellow", vjust = 1) +
@@ -175,8 +176,7 @@ Additional functions for feature analysis are currently in development.
 
 ## Citation
 
-Please cite *imgrec* if you use the package for
-    publications:
+Please cite *imgrec* if you use the package for publications:
 
     Carsten Schwemmer (2019). imgrec: Image Recognition. R package version 0.1.0.
     https://CRAN.R-project.org/package=imgrec
@@ -187,6 +187,6 @@ A BibTeX entry for LaTeX users is:
       title = {imgrec: Image Recognition},
       author = {Carsten Schwemmer},
       year = {2019},
-      note = {R package version 0.1.0},
+      note = {R package version 0.1.2},
       url = {https://CRAN.R-project.org/package=imgrec},
     }

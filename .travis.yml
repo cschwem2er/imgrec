@@ -3,7 +3,6 @@
 language: R
 sudo: true
 cache: packages
-dist: trusty
 
 before_install:
   - sudo apt-get install libmagick++-dev

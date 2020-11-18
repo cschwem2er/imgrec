@@ -2,7 +2,7 @@
 title: "Annotate Twitter images with imgrec"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Annotate Twitter images with imgrec}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

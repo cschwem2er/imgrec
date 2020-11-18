@@ -109,8 +109,9 @@ img_data <- parse_annotations(results) # returns list of data frames
 names(img_data) # all available features
 #>  [1] "labels"            "web_labels"        "web_similar"      
 #>  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
-#>  [7] "objects"           "logos"             "full_text"        
-#> [10] "safe_search"       "colors"            "crop_hints"
+#>  [7] "faces"             "objects"           "logos"            
+#> [10] "full_text"         "safe_search"       "colors"           
+#> [13] "crop_hints"
 ```
 
 Once the features are converted to data frames, other R packages can be
@@ -142,20 +143,24 @@ library(ggplot2)
 img <- image_read(sw_image)
 ```
 
+*\[\!\!\] There is currently a bug when using `magick` and `ggplot2`
+which leads to upside down annotations. A temporary work around is to
+subtract image width height (y) values (see below).*
+
 ``` r
 image_ggplot(img) + 
    geom_rect(data = img_data$logos, 
           aes(xmin = poly_x_min, xmax = poly_x_max, 
-              ymin = poly_y_min, ymax = poly_y_max),
+              ymin = 322 - poly_y_min, ymax =  322 -poly_y_max),
               color = 'yellow', fill = NA, linetype = 'dashed', size = 2,
               inherit.aes = FALSE) +
    geom_text(data = img_data$logos, 
-          aes(x =poly_x_max, y = poly_y_max, label = description),
-              size = 8, color = "yellow", vjust = 1) +
+          aes(x = poly_x_max, y = 322 - poly_y_max, label = description),
+              size = 4, color = "yellow", vjust = 1) +
   theme(legend.position="none")
 ```
 
-<img src="man/figures/sw_logo_rec.png" width="300">
+![](man/figures/example_image.png)
 
 Please note that for *object recognition* data, bounding polygons are
 relative to image dimensions. Therefore, you need to multiply them with
@@ -178,7 +183,7 @@ Additional functions for feature analysis are currently in development.
 
 Please cite *imgrec* if you use the package for publications:
 
-    Carsten Schwemmer (2019). imgrec: Image Recognition. R package version 0.1.0.
+    Carsten Schwemmer (2020). imgrec: Image Recognition. R package version 0.1.2.
     https://CRAN.R-project.org/package=imgrec
 
 A BibTeX entry for LaTeX users is:
@@ -186,7 +191,7 @@ A BibTeX entry for LaTeX users is:
     @Manual{,
       title = {imgrec: Image Recognition},
       author = {Carsten Schwemmer},
-      year = {2019},
+      year = {2020},
       note = {R package version 0.1.2},
       url = {https://CRAN.R-project.org/package=imgrec},
     }

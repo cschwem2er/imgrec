@@ -90,6 +90,11 @@ knitr::kable(head(img_labels))
 *imgrec* also extracts bounding polygons for logos, objects, faces and landmarks. We can for instance visualize all recognized logos of the Star Wars movie poster with  [magick](https://CRAN.R-project.org/package=magick) and [ggplot2](https://CRAN.R-project.org/package=ggplot2):
 
 
+*[!!] There is currently a bug when using `magick` and `ggplot2` which leads to upside down annotations. A temporary work around is to subtract image height (y) values (see below).*
+
+
+
+
 ```{r eval=LOCAL, fig.height=5.36, fig.width=3.66, message=FALSE, warning=FALSE}
 library(magick)
 library(ggplot2)
@@ -101,8 +106,8 @@ image_ggplot(img) +
     aes(
       xmin = poly_x_min,
       xmax = poly_x_max,
-      ymin = poly_y_min,
-      ymax = poly_y_max
+      ymin = 322 - poly_y_min,
+      ymax = 322 - poly_y_max
     ),
     inherit.aes = FALSE,
     color = 'yellow',
@@ -112,7 +117,7 @@ image_ggplot(img) +
   ) +
   geom_text(
     data = img_data$logos,
-    aes(x = poly_x_max, y = poly_y_max, label = description),
+    aes(x = poly_x_max, y = 322 - poly_y_max, label = description),
     size = 4,
     color = "yellow",
     vjust = 1

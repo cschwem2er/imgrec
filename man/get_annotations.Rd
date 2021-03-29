@@ -22,7 +22,7 @@ An response object of class \code{'gvision_annotations'}.
 Calls the 'Google Vision' API to return annotations. The function automatically creates batches
 }
 \examples{
-\donttest{
+\dontrun{
 
  gvision_init()
 

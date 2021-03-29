@@ -8,3 +8,5 @@ _pkgdown.yaml
 ^appveyor\.yml$
 ^docs$
 ^cran-comments\.md$
+^doc$
+^Meta$

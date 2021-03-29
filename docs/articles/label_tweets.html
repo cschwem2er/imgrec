@@ -95,11 +95,11 @@
 
     
     
-<p>This short vignette demonstrates how to download and annotate images inside Tweets. Besides <code>imgrec</code>, we will use <a href="https://cran.r-project.org/web/packages/rtweet/index.html">rtweet</a> to get Twitter data and the <a href="https://cran.r-project.org/web/packages/dplyr/index.html">dplyr</a> package for data wrangling.</p>
+<p>This short vignette demonstrates how to download and annotate images inside Tweets. Besides <code>imgrec</code>, we will use <a href="https://cran.r-project.org/package=rtweet">rtweet</a> to get Twitter data and the <a href="https://cran.r-project.org/package=dplyr">dplyr</a> package for data wrangling.</p>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h2>
-<p>Before we start, access credentials are required for Twitter and Google Cloud Vision. For this example, all credentials are stored as R environment variables. Check out this rtweet <a href="https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html">vignette</a> to obtain and use Twitter API access tokens. The authentification for Google Cloud Vision is described in this imgrec <a href="https://cran.r-project.org/web/packages/imgrec/vignettes/intro.html">vignette</a>.</p>
+<p>Before we start, access credentials are required for Twitter and Google Cloud Vision. For this example, all credentials are stored as R environment variables. Check out the rtweet authentication vignette to obtain and use Twitter API access tokens. The authentication for Google Cloud Vision is described in the imgrec intro vignette.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># load libraries</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cschwem2er/imgrec">imgrec</a></span><span class="op">)</span>

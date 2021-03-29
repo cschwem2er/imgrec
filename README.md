@@ -10,7 +10,7 @@ Status](https://ci.appveyor.com/api/projects/status/github/cschwem2er/imgrec?bra
 [![CRAN
 status](https://www.r-pkg.org/badges/version/imgrec)](https://cran.r-project.org/package=imgrec)
 [![CRAN
-downloads](https://cranlogs.r-pkg.org/badges/grand-total/imgrec)](https://cran.rstudio.com/web/packages/imgrec/index.html)
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/imgrec)](https://cran.r-project.org/package=imgrec)
 
 ## Image Recognition with R
 
@@ -104,10 +104,12 @@ original identifier of each image is included as `img_id`.
 
 ``` r
 img_data <- parse_annotations(results) # returns list of data frames
-#> [1] "Error for https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg"
-#> [1] "API message: We can not access the URL currently. Please download the content and pass it in."
 names(img_data) # all available features
-#> NULL
+#>  [1] "labels"            "web_labels"        "web_similar"      
+#>  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
+#>  [7] "faces"             "objects"           "logos"            
+#> [10] "full_text"         "safe_search"       "colors"           
+#> [13] "crop_hints"
 ```
 
 Once the features are converted to data frames, other R packages can be
@@ -119,10 +121,13 @@ img_labels <- img_data$labels
 head(img_labels)
 ```
 
-    #> Warning in kable_pipe(x = structure(character(0), .Dim = c(0L, 0L), .Dimnames =
-    #> list(: The table should have a header (column names)
-
-|| || || ||
+| mid         | description       |     score | topicality | img\_id                                                                                            |
+| :---------- | :---------------- | --------: | ---------: | :------------------------------------------------------------------------------------------------- |
+| /m/01n5jq   | Poster            | 0.8651403 |  0.8651403 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/07c1v    | Technology        | 0.7464914 |  0.7464914 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/0bs7\_0t | Electronic device | 0.7454269 |  0.7454269 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/02kdv5l  | Action film       | 0.6947994 |  0.6947994 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/03gq5hm  | Font              | 0.6943765 |  0.6943765 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
 
 The package also extracts bounding polygons for logos, objects, faces
 and landmarks. We can for instance visualize all recognized logos of the
@@ -176,7 +181,7 @@ Additional functions for feature analysis are currently in development.
 
 Please cite *imgrec* if you use the package for publications:
 
-    Carsten Schwemmer (2020). imgrec: Image Recognition. R package version 0.1.2.
+    Carsten Schwemmer (2021). imgrec: Image Recognition. R package version 0.1.2.
     https://CRAN.R-project.org/package=imgrec
 
 A BibTeX entry for LaTeX users is:
@@ -184,7 +189,7 @@ A BibTeX entry for LaTeX users is:
     @Manual{,
       title = {imgrec: Image Recognition},
       author = {Carsten Schwemmer},
-      year = {2020},
+      year = {2021},
       note = {R package version 0.1.2},
       url = {https://CRAN.R-project.org/package=imgrec},
     }

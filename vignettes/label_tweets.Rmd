@@ -13,11 +13,11 @@ knitr::opts_chunk$set(purl = LOCAL)
 ```
 
 
-This short vignette demonstrates how to download and annotate images inside Tweets. Besides `imgrec`, we will use [rtweet](https://cran.r-project.org/web/packages/rtweet/index.html) to get Twitter data and the [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html) package for data wrangling.
+This short vignette demonstrates how to download and annotate images inside Tweets. Besides `imgrec`, we will use [rtweet](https://cran.r-project.org/package=rtweet) to get Twitter data and the [dplyr](https://cran.r-project.org/package=dplyr) package for data wrangling.
 
 ## Setup
 
-Before we start, access credentials are required for Twitter and Google Cloud Vision. For this example, all credentials are stored as R environment variables. Check out this rtweet [vignette](https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html) to obtain and use Twitter API access tokens. The authentification for Google Cloud Vision is described in this imgrec [vignette](https://cran.r-project.org/web/packages/imgrec/vignettes/intro.html).
+Before we start, access credentials are required for Twitter and Google Cloud Vision. For this example, all credentials are stored as R environment variables. Check out the rtweet authentication vignette to obtain and use Twitter API access tokens. The authentication for Google Cloud Vision is described in the imgrec intro vignette.
 
 ```{r eval=LOCAL, message=FALSE, warning=FALSE}
 # load libraries

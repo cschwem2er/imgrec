@@ -20,7 +20,7 @@ knitr::opts_chunk$set(purl = LOCAL)
 
 You can download and install the latest development version with the devtools package by running ``devtools::install_github('cschwem2er/imgrec')``.    
 
-For Windows users installing from github requires proper setup of [Rtools](https://cran.r-project.org/bin/windows/Rtools/), for which a tutorial is available [here](https://github.com/stan-dev/rstan/wiki/Installing-RStan-from-source-on-Windows).
+For Windows users installing from github requires proper setup of [Rtools](https://cran.r-project.org/bin/windows/Rtools/).
 
 The package can also be installed from CRAN by running `install.packages('imgrec')`.
 

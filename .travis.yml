@@ -10,3 +10,4 @@ before_install:
 env:
   global:
      - R_CHECK_ARGS="--no-build-vignettes --no-manual"
+     - _R_CHECK_DONTTEST_EXAMPLES_=FALSE

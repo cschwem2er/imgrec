@@ -27,9 +27,7 @@ with the devtools package by running
 `devtools::install_github('cschwem2er/imgrec')`.
 
 For Windows users installing from github requires proper setup of
-[Rtools](https://cran.r-project.org/bin/windows/Rtools/), for which a
-tutorial is available
-[here](https://github.com/stan-dev/rstan/wiki/Installing-RStan-from-source-on-Windows).
+[Rtools](https://cran.r-project.org/bin/windows/Rtools/).
 
 The package can also be installed from CRAN by running
 `install.packages('imgrec')`.
@@ -106,12 +104,10 @@ original identifier of each image is included as `img_id`.
 
 ``` r
 img_data <- parse_annotations(results) # returns list of data frames
+#> [1] "Error for https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg"
+#> [1] "API message: We can not access the URL currently. Please download the content and pass it in."
 names(img_data) # all available features
-#>  [1] "labels"            "web_labels"        "web_similar"      
-#>  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
-#>  [7] "faces"             "objects"           "logos"            
-#> [10] "full_text"         "safe_search"       "colors"           
-#> [13] "crop_hints"
+#> NULL
 ```
 
 Once the features are converted to data frames, other R packages can be
@@ -123,13 +119,10 @@ img_labels <- img_data$labels
 head(img_labels)
 ```
 
-| mid       | description    |     score | topicality | img\_id                                                                                            |
-| :-------- | :------------- | --------: | ---------: | :------------------------------------------------------------------------------------------------- |
-| /m/01n5jq | Poster         | 0.9679052 |  0.9679052 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/02vxn  | Movie          | 0.9287522 |  0.9287522 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/03c31  | Graphic design | 0.7759998 |  0.7759998 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/0218rg | Flyer          | 0.6593872 |  0.6593872 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/011s0  | Advertising    | 0.6283476 |  0.6283476 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+    #> Warning in kable_pipe(x = structure(character(0), .Dim = c(0L, 0L), .Dimnames =
+    #> list(: The table should have a header (column names)
+
+|| || || ||
 
 The package also extracts bounding polygons for logos, objects, faces
 and landmarks. We can for instance visualize all recognized logos of the
@@ -145,7 +138,7 @@ img <- image_read(sw_image)
 
 *\[\!\!\] There is currently a bug when using `magick` and `ggplot2`
 which leads to upside down annotations. A temporary work around is to
-subtract image width height (y) values (see below).*
+subtract image width height (y) values (see code below).*
 
 ``` r
 image_ggplot(img) + 

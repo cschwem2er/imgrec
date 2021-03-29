@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -68,7 +68,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/cschwem2er/imgrec/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,8 +82,7 @@
 
       
 
-      </header><script src="label_tweets_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="label_tweets_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="label_tweets_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="label_tweets_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Annotate Twitter images with imgrec</h1>
@@ -136,39 +135,23 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">example</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rtweet/man/lookup_statuses.html">lookup_tweets</a></span><span class="op">(</span><span class="fl">896523232098078720</span><span class="op">)</span>
 <span class="va">example</span><span class="op">$</span><span class="va">media_url</span></code></pre></div>
-<pre><code>## [[1]]
-## [1] "http://pbs.twimg.com/media/DHEXH7RV0AAUwKj.jpg"</code></pre>
 <p><img src="http://pbs.twimg.com/media/DHEXH7RV0AAUwKj.jpg" style="width:50.0%"></p>
 </div>
 <div id="annotate-tweets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#annotate-tweets" class="anchor"></a>Annotate Tweets</h2>
 <p>Now, we retrieve and parse annotations for the Tweet image:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_annotations.html">get_annotations</a></span><span class="op">(</span>images <span class="op">=</span> <span class="va">example</span><span class="op">$</span><span class="va">media_url</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, 
                            max_res <span class="op">=</span> <span class="fl">10</span>, <span class="co"># max. number of labels,</span>
                            mode <span class="op">=</span> <span class="st">"url"</span>, <span class="co"># we pass an image url</span>
                            features <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-           <span class="fu"><a href="../reference/parse_annotations.html">parse_annotations</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "Sending API request(s).."</code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="co"># features obtained by Google Cloud Vision</span></code></pre></div>
-<pre><code>##  [1] "labels"            "web_labels"        "web_similar"      
-##  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
-##  [7] "faces"             "objects"           "safe_search"      
-## [10] "colors"            "crop_hints"</code></pre>
+           <span class="fu"><a href="../reference/parse_annotations.html">parse_annotations</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="co"># features obtained by Google Cloud Vision</span></code></pre></div>
 <p>And that’s it! The results are stored in a list object wich includes dataframes for all annotations retrieved from Google Cloud Vision:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span><span class="op">$</span><span class="va">labels</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 5
-##   mid       description score topicality img_id                                 
-##   &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;                                  
-## 1 /m/0d4v4  Window      0.732      0.732 http://pbs.twimg.com/media/DHEXH7RV0AA~
-## 2 /m/06ht1  Room        0.657      0.657 http://pbs.twimg.com/media/DHEXH7RV0AA~
-## 3 /m/01l0mw Home        0.637      0.637 http://pbs.twimg.com/media/DHEXH7RV0AA~
-## 4 /m/0244x1 Gesture     0.558      0.558 http://pbs.twimg.com/media/DHEXH7RV0AA~
-## 5 /m/03jm5  House       0.537      0.537 http://pbs.twimg.com/media/DHEXH7RV0AA~
-## 6 /m/0ytgt  Child       0.520      0.520 http://pbs.twimg.com/media/DHEXH7RV0AA~</code></pre>
 </div>
   </div>
 

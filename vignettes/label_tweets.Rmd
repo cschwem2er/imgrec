@@ -74,7 +74,7 @@ results <- get_annotations(images = example$media_url[[1]],
 names(results) # features obtained by Google Cloud Vision
 ```
 
-And that's it! The results are stored in a list object wich includes dataframes for all annotations retrieved from Google Cloud Vision:
+And that's it! The results are stored in a list object which includes dataframes for all annotations retrieved from Google Cloud Vision:
 
 ```{r, eval = LOCAL}
 results$labels %>% head()

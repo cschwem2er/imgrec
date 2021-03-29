@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -68,7 +68,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/cschwem2er/imgrec/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,8 +82,7 @@
 
       
 
-      </header><script src="intro_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="intro_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="intro_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="intro_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to imgrec</h1>
@@ -120,7 +119,6 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cschwem2er/imgrec">imgrec</a></span><span class="op">)</span>
 <span class="fu"><a href="../reference/gvision_init.html">gvision_init</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## Succesfully initialized authentification credentials.</code></pre>
 <p>In order to avoid calling <code>Sys.setenv</code>, you can permanently store the API key in your <code>.Renviron</code>. I recommend <code><a href="https://usethis.r-lib.org/reference/edit.html">usethis::edit_r_environ()</a></code> to find and edit your environment file.</p>
 </div>
 <div id="image-annotations" class="section level3">
@@ -128,89 +126,30 @@
 <a href="#image-annotations" class="anchor"></a>Image annotations</h3>
 <p>Google Vision accepts common file types such as JPG, PNG, or BMP. Images can be passed to several <code>get_annotations</code>, either as url strings or file paths to local images. In the following example, <code>get_annotations</code> is used to retrieve annotations for a poster of the Star Wars movie <a href="https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens">The Force Awakens</a>.</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" width="250"></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sw_image</span> <span class="op">&lt;-</span> <span class="st">'https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg'</span>
 <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_annotations.html">get_annotations</a></span><span class="op">(</span>images <span class="op">=</span> <span class="va">sw_image</span>, <span class="co"># image character vector</span>
                            features <span class="op">=</span> <span class="st">'all'</span>, <span class="co"># request all available features</span>
                            max_res <span class="op">=</span> <span class="fl">5</span>, <span class="co"># maximum number of results per feature</span>
                            mode <span class="op">=</span> <span class="st">'url'</span><span class="op">)</span> <span class="co"># determine image type</span></code></pre></div>
-<pre><code>## [1] "Sending API request(s).."</code></pre>
 <p>The function returns a response object from the Google Vision API. It also recognizes if a user passes a character vector with multiple images. In this case, request batches are created automatically to reduce the number of required calls to the API.</p>
 <p>After retrieving annotations, raw data can be stored in an UTF-8 encoded <a href="https://en.wikipedia.org/wiki/JSON">JSON</a> file:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">temp_file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">'.json'</span><span class="op">)</span>
 <span class="fu"><a href="../reference/save_json.html">save_json</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">temp_file_path</span><span class="op">)</span></code></pre></div>
 <p>While some users might prefer to work with raw <code>.json</code> data, which includes every single detail returned by the API, the structure is quite complex and deeply nested. To simplify the data, <code>parse_annotations</code> converts most of the features to data frames. For each feature, the original identifier of each image is included as <code>img_id</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">img_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/parse_annotations.html">parse_annotations</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="co"># returns list of data frames</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">img_data</span><span class="op">)</span> <span class="co"># all available features</span></code></pre></div>
-<pre><code>##  [1] "labels"            "web_labels"        "web_similar"      
-##  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
-##  [7] "faces"             "objects"           "logos"            
-## [10] "full_text"         "safe_search"       "colors"           
-## [13] "crop_hints"</code></pre>
 <p>Once the features are converted to data frames, other R packages can be used to analyze the data. For instance, the <code>labels</code> data frame contains annotations about image content:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">img_labels</span> <span class="op">&lt;-</span> <span class="va">img_data</span><span class="op">$</span><span class="va">labels</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">img_labels</span><span class="op">)</span></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="6%">
-<col width="10%">
-<col width="6%">
-<col width="7%">
-<col width="67%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">mid</th>
-<th align="left">description</th>
-<th align="right">score</th>
-<th align="right">topicality</th>
-<th align="left">img_id</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">/m/01n5jq</td>
-<td align="left">Poster</td>
-<td align="right">0.9679052</td>
-<td align="right">0.9679052</td>
-<td align="left"><a href="https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" class="uri">https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg</a></td>
-</tr>
-<tr class="even">
-<td align="left">/m/02vxn</td>
-<td align="left">Movie</td>
-<td align="right">0.9287522</td>
-<td align="right">0.9287522</td>
-<td align="left"><a href="https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" class="uri">https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg</a></td>
-</tr>
-<tr class="odd">
-<td align="left">/m/03c31</td>
-<td align="left">Graphic design</td>
-<td align="right">0.7759998</td>
-<td align="right">0.7759998</td>
-<td align="left"><a href="https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" class="uri">https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg</a></td>
-</tr>
-<tr class="even">
-<td align="left">/m/0218rg</td>
-<td align="left">Flyer</td>
-<td align="right">0.6593872</td>
-<td align="right">0.6593872</td>
-<td align="left"><a href="https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" class="uri">https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg</a></td>
-</tr>
-<tr class="odd">
-<td align="left">/m/011s0</td>
-<td align="left">Advertising</td>
-<td align="right">0.6283476</td>
-<td align="right">0.6283476</td>
-<td align="left"><a href="https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" class="uri">https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg</a></td>
-</tr>
-</tbody>
-</table>
 <p><em>imgrec</em> also extracts bounding polygons for logos, objects, faces and landmarks. We can for instance visualize all recognized logos of the Star Wars movie poster with <a href="https://CRAN.R-project.org/package=magick">magick</a> and <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a>:</p>
-<p><em>[!!] There is currently a bug when using <code>magick</code> and <code>ggplot2</code> which leads to upside down annotations. A temporary work around is to subtract image height (y) values (see below).</em></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p><em>[!!] There is currently a bug when using <code>magick</code> and <code>ggplot2</code> which leads to upside down annotations. A temporary work around is to subtract image height (y) values (see code below).</em></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/magick/">magick</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
 <span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/magick/reference/editing.html">image_read</a></span><span class="op">(</span><span class="va">sw_image</span><span class="op">)</span>
 <span class="fu"><a href="https://docs.ropensci.org/magick/reference/image_ggplot.html">image_ggplot</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span> <span class="op">+</span>
@@ -236,15 +175,10 @@
     vjust <span class="op">=</span> <span class="fl">1</span>
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-9-1.png" width="351.36"></p>
 <p>Please note that for <em>object recognition</em> data, bounding polygons are relative to image dimensions. Therefore, you need to multiply them with image width (x) and height (y). These attributes are not returned by Google Vision, but can for instance be identified with <code><a href="https://docs.ropensci.org/magick/reference/attributes.html">magick::image_info()</a></code>:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">img_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/magick/reference/attributes.html">image_info</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span> 
 <span class="va">img_info</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 7
-##   format width height colorspace matte filesize density
-##   &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;    &lt;int&gt; &lt;chr&gt;  
-## 1 JPEG     220    322 sRGB       FALSE   136703 28x28</code></pre>
 <p>Additional functions for feature analysis are currently in development.</p>
 </div>
 </div>

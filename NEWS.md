@@ -1,3 +1,8 @@
+# imgrec 0.1.3
+
+## Minor update
+
+* Added "buest guess" annotations for web search
 
 # imgrec 0.1.2
 

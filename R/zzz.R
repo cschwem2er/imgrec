@@ -376,6 +376,13 @@ parse_web <- function(web, img_id) {
     labels$img_id <- img_id
     web_results$labels <- labels
   }
+  
+  if (!is.null(web[['bestGuessLabels']])) {
+    labels <- do.call(bind_rows, web$bestGuessLabels)
+    labels$img_id <- img_id
+    web_results$bestguess <- labels
+  }
+  
 
   if (!is.null(web[['visuallySimilarImages']])) {
     similar <- tibble(img_id = img_id,

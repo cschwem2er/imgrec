@@ -1,8 +1,8 @@
 Package: imgrec
 Type: Package
 Title: An Interface for Image Recognition
-Version: 0.1.2
-Date: 2021-03-29
+Version: 0.1.3
+Date: 2021-12-09
 Authors@R: person("Carsten", "Schwemmer", email = "c.schwem2er@gmail.com", comment = c(ORCID = "0000-0001-9084-946X"), role = c("aut", "cre"))
 URL: https://github.com/cschwem2er/imgrec
 BugReports: https://github.com/cschwem2er/imgrec/issues
@@ -18,10 +18,10 @@ Imports:
     jsonlite (>= 1.7.0),
     rlang (>= 0.4.0)
 Suggests: 
-    magick (>= 2.6.0),
+    magick (>= 2.7.0),
     ggplot2 (>= 3.3.0),
-    usethis (>= 2.0.0),
-    pillar (>= 1.5.0),
+    usethis (>= 2.1.0),
+    pillar (>= 1.6.0),
     rtweet (>= 0.7.0),
     rmarkdown (>= 2.7.0)
 VignetteBuilder: knitr

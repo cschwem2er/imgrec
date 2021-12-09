@@ -106,6 +106,11 @@ parse_annotations <- function(annotations) {
                     web[['pages']])
       }
 
+      if (!is.null(web[['bestguess']])) {
+        data_frames$web_best_guess <- bind_rows(data_frames$web_best_guess,
+                                            web[['bestguess']])
+      }
+      
 
     }
 

@@ -10,3 +10,4 @@ _pkgdown.yaml
 ^cran-comments\.md$
 ^doc$
 ^Meta$
+..Rcheck

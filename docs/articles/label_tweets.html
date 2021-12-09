@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">imgrec</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -67,7 +63,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/cschwem2er/imgrec/">
+  <a href="https://github.com/cschwem2er/imgrec/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -82,39 +78,39 @@
 
       
 
-      </header><script src="label_tweets_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Annotate Twitter images with imgrec</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/cschwem2er/imgrec/blob/master/vignettes/label_tweets.Rmd"><code>vignettes/label_tweets.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cschwem2er/imgrec/blob/HEAD/vignettes/label_tweets.Rmd" class="external-link"><code>vignettes/label_tweets.Rmd</code></a></small>
       <div class="hidden name"><code>label_tweets.Rmd</code></div>
 
     </div>
 
     
     
-<p>This short vignette demonstrates how to download and annotate images inside Tweets. Besides <code>imgrec</code>, we will use <a href="https://cran.r-project.org/package=rtweet">rtweet</a> to get Twitter data and the <a href="https://cran.r-project.org/package=dplyr">dplyr</a> package for data wrangling.</p>
-<div id="setup" class="section level2">
-<h2 class="hasAnchor">
-<a href="#setup" class="anchor"></a>Setup</h2>
+<p>This short vignette demonstrates how to download and annotate images inside Tweets. Besides <code>imgrec</code>, we will use <a href="https://cran.r-project.org/package=rtweet" class="external-link">rtweet</a> to get Twitter data and the <a href="https://cran.r-project.org/package=dplyr" class="external-link">dplyr</a> package for data wrangling.</p>
+<div class="section level2">
+<h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h2>
 <p>Before we start, access credentials are required for Twitter and Google Cloud Vision. For this example, all credentials are stored as R environment variables. Check out the rtweet authentication vignette to obtain and use Twitter API access tokens. The authentication for Google Cloud Vision is described in the imgrec intro vignette.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># load libraries</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cschwem2er/imgrec">imgrec</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://CRAN.R-project.org/package=rtweet">rtweet</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cschwem2er/imgrec" class="external-link">imgrec</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://CRAN.R-project.org/package=rtweet" class="external-link">rtweet</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 
 <span class="co"># prepare twitter credentials</span>
-<span class="va">app_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">'twitter_app_name'</span><span class="op">)</span>
-<span class="va">consumer_key</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">'twitter_consumer_key'</span><span class="op">)</span>
-<span class="va">consumer_secret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">'twitter_consumer_secret'</span><span class="op">)</span>
-<span class="va">access_token</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">'twitter_access_token'</span><span class="op">)</span>
-<span class="va">access_token_secret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">'twitter_access_secret'</span><span class="op">)</span>
+<span class="va">app_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">'twitter_app_name'</span><span class="op">)</span>
+<span class="va">consumer_key</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">'twitter_consumer_key'</span><span class="op">)</span>
+<span class="va">consumer_secret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">'twitter_consumer_secret'</span><span class="op">)</span>
+<span class="va">access_token</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">'twitter_access_token'</span><span class="op">)</span>
+<span class="va">access_token_secret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">'twitter_access_secret'</span><span class="op">)</span>
 
 <span class="co"># obtain twitter access token</span>
-<span class="va">token</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rtweet/man/create_token.html">create_token</a></span><span class="op">(</span>app <span class="op">=</span> <span class="va">app_name</span>, 
+<span class="va">token</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rtweet/man/create_token.html" class="external-link">create_token</a></span><span class="op">(</span>app <span class="op">=</span> <span class="va">app_name</span>, 
              consumer_key <span class="op">=</span> <span class="va">consumer_key</span>, 
              consumer_secret <span class="op">=</span> <span class="va">consumer_secret</span>, 
              access_token <span class="op">=</span> <span class="va">access_token</span>,
@@ -124,34 +120,34 @@
 <span class="co"># setup authentification for google vision</span>
 <span class="fu"><a href="../reference/gvision_init.html">gvision_init</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="download-tweets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#download-tweets" class="anchor"></a>Download tweets</h2>
-<p>If you know the status id’s of Tweets that you would like to obtain, you can use <code><a href="https://rdrr.io/pkg/rtweet/man/lookup_statuses.html">lookup_tweets()</a></code>, which takes a vector of status id’s as input and retrieves all corresponding tweets. URL’s of images (and videos) are stored in the list column <code>media_url</code>.</p>
+<div class="section level2">
+<h2 id="download-tweets">Download tweets<a class="anchor" aria-label="anchor" href="#download-tweets"></a>
+</h2>
+<p>If you know the status id’s of Tweets that you would like to obtain, you can use <code><a href="https://rdrr.io/pkg/rtweet/man/lookup_statuses.html" class="external-link">lookup_tweets()</a></code>, which takes a vector of status id’s as input and retrieves all corresponding tweets. URL’s of images (and videos) are stored in the list column <code>media_url</code>.</p>
 <p>We use one of the most-retweeted tweets posted by Barack Obama as an example:</p>
 <blockquote>
-<p>“No one is born hating another person because of the color of his skin or his background or his religion…” (<a href="https://twitter.com/BarackObama/status/896523232098078720">Barack Obama, Twitter Status</a>)</p>
+<p>“No one is born hating another person because of the color of his skin or his background or his religion…” (<a href="https://twitter.com/BarackObama/status/896523232098078720" class="external-link">Barack Obama, Twitter Status</a>)</p>
 </blockquote>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">example</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rtweet/man/lookup_statuses.html">lookup_tweets</a></span><span class="op">(</span><span class="fl">896523232098078720</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">example</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rtweet/man/lookup_statuses.html" class="external-link">lookup_tweets</a></span><span class="op">(</span><span class="fl">896523232098078720</span><span class="op">)</span>
 <span class="va">example</span><span class="op">$</span><span class="va">media_url</span></code></pre></div>
 <p><img src="http://pbs.twimg.com/media/DHEXH7RV0AAUwKj.jpg" style="width:50.0%"></p>
 </div>
-<div id="annotate-tweets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#annotate-tweets" class="anchor"></a>Annotate Tweets</h2>
+<div class="section level2">
+<h2 id="annotate-tweets">Annotate Tweets<a class="anchor" aria-label="anchor" href="#annotate-tweets"></a>
+</h2>
 <p>Now, we retrieve and parse annotations for the Tweet image:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_annotations.html">get_annotations</a></span><span class="op">(</span>images <span class="op">=</span> <span class="va">example</span><span class="op">$</span><span class="va">media_url</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, 
                            max_res <span class="op">=</span> <span class="fl">10</span>, <span class="co"># max. number of labels,</span>
                            mode <span class="op">=</span> <span class="st">"url"</span>, <span class="co"># we pass an image url</span>
-                           features <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+                           features <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
            <span class="fu"><a href="../reference/parse_annotations.html">parse_annotations</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="co"># features obtained by Google Cloud Vision</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="co"># features obtained by Google Cloud Vision</span></code></pre></div>
 <p>And that’s it! The results are stored in a list object which includes dataframes for all annotations retrieved from Google Cloud Vision:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span><span class="op">$</span><span class="va">labels</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">results</span><span class="op">$</span><span class="va">labels</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 
@@ -166,11 +162,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.carstenschwemmer.com">Carsten Schwemmer</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://www.carstenschwemmer.com" class="external-link">Carsten Schwemmer</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -178,6 +176,8 @@
 
   
 
+
+  
 
   </body>
 </html>

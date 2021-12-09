@@ -105,8 +105,8 @@ original identifier of each image is included as `img_id`.
 ``` r
 img_data <- parse_annotations(results) # returns list of data frames
 names(img_data) # all available features
-#>  [1] "labels"            "web_labels"        "web_similar"      
-#>  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
+#>  [1] "labels"            "web_labels"        "web_match_partial"
+#>  [4] "web_match_full"    "web_match_pages"   "web_best_guess"   
 #>  [7] "faces"             "objects"           "logos"            
 #> [10] "full_text"         "safe_search"       "colors"           
 #> [13] "crop_hints"
@@ -121,13 +121,13 @@ img_labels <- img_data$labels
 head(img_labels)
 ```
 
-| mid         | description       |     score | topicality | img\_id                                                                                            |
-| :---------- | :---------------- | --------: | ---------: | :------------------------------------------------------------------------------------------------- |
-| /m/01n5jq   | Poster            | 0.8651403 |  0.8651403 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/07c1v    | Technology        | 0.7464914 |  0.7464914 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/0bs7\_0t | Electronic device | 0.7454269 |  0.7454269 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/02kdv5l  | Action film       | 0.6947994 |  0.6947994 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/03gq5hm  | Font              | 0.6943765 |  0.6943765 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| mid        | description       |     score | topicality | img_id                                                                                             |
+|:-----------|:------------------|----------:|-----------:|:---------------------------------------------------------------------------------------------------|
+| /m/01n5jq  | Poster            | 0.8651403 |  0.8651403 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/07c1v   | Technology        | 0.7464914 |  0.7464914 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/0bs7_0t | Electronic device | 0.7454269 |  0.7454269 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/02kdv5l | Action film       | 0.6947994 |  0.6947994 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/03gq5hm | Font              | 0.6943765 |  0.6943765 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
 
 The package also extracts bounding polygons for logos, objects, faces
 and landmarks. We can for instance visualize all recognized logos of the
@@ -141,9 +141,9 @@ library(ggplot2)
 img <- image_read(sw_image)
 ```
 
-*\[\!\!\] There is currently a bug when using `magick` and `ggplot2`
-which leads to upside down annotations. A temporary work around is to
-subtract image width height (y) values (see code below).*
+*\[!!\] There is currently a bug when using `magick` and `ggplot2` which
+leads to upside down annotations. A temporary work around is to subtract
+image width height (y) values (see code below).*
 
 ``` r
 image_ggplot(img) + 
@@ -181,7 +181,7 @@ Additional functions for feature analysis are currently in development.
 
 Please cite *imgrec* if you use the package for publications:
 
-    Carsten Schwemmer (2021). imgrec: Image Recognition. R package version 0.1.2.
+    Carsten Schwemmer (2021). imgrec: Image Recognition. R package version 0.1.3.
     https://CRAN.R-project.org/package=imgrec
 
 A BibTeX entry for LaTeX users is:
@@ -190,6 +190,6 @@ A BibTeX entry for LaTeX users is:
       title = {imgrec: Image Recognition},
       author = {Carsten Schwemmer},
       year = {2021},
-      note = {R package version 0.1.2},
+      note = {R package version 0.1.3},
       url = {https://CRAN.R-project.org/package=imgrec},
     }

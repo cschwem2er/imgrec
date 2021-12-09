@@ -142,7 +142,7 @@ Please cite imgrec if you use it for publications:
 
 
 ```
-Carsten Schwemmer (2019). imgrec: Image Recognition. R package version 0.1.2.
+Carsten Schwemmer (2019). imgrec: Image Recognition. R package version 0.1.3.
 https://CRAN.R-project.org/package=imgrec
 ```
 
@@ -153,7 +153,7 @@ A BibTeX entry for LaTeX users is:
   title = {imgrec: Image Recognition},
   author = {Carsten Schwemmer},
   year = {2019},
-  note = {R package version 0.1.2},
+  note = {R package version 0.1.3},
   url = {https://CRAN.R-project.org/package=imgrec},
 }
 ```

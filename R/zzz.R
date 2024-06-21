@@ -12,6 +12,9 @@
 #' @importFrom httr user_agent
 #' @importFrom httr content
 #' @importFrom rlang .data
+#' @importFrom knitr kable
+#' @importFrom methods is
+
 
 
 .imgrec <- new.env(parent = emptyenv())

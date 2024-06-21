@@ -47,7 +47,7 @@
 
 
 parse_annotations <- function(annotations) {
-  if (!class(annotations) == 'gvision_annotations') {
+  if(!is(annotations, 'gvision_annotations')) {
     stop('"this function only accepts annotation object')
   }
 

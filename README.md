@@ -3,8 +3,6 @@
 
 # imgrec
 
-[![Travis-CI Build
-Status](https://travis-ci.org/cschwem2er/imgrec.svg?branch=master)](https://travis-ci.org/cschwem2er/imgrec)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/cschwem2er/imgrec?branch=master&svg=true)](https://ci.appveyor.com/project/cschwem2er/imgrec)
 [![CRAN
@@ -105,11 +103,11 @@ original identifier of each image is included as `img_id`.
 ``` r
 img_data <- parse_annotations(results) # returns list of data frames
 names(img_data) # all available features
-#>  [1] "labels"            "web_labels"        "web_match_partial"
-#>  [4] "web_match_full"    "web_match_pages"   "web_best_guess"   
-#>  [7] "faces"             "objects"           "logos"            
-#> [10] "full_text"         "safe_search"       "colors"           
-#> [13] "crop_hints"
+#>  [1] "labels"            "web_labels"        "web_similar"      
+#>  [4] "web_match_partial" "web_match_full"    "web_match_pages"  
+#>  [7] "web_best_guess"    "faces"             "objects"          
+#> [10] "logos"             "full_text"         "safe_search"      
+#> [13] "colors"            "crop_hints"
 ```
 
 Once the features are converted to data frames, other R packages can be
@@ -121,13 +119,13 @@ img_labels <- img_data$labels
 head(img_labels)
 ```
 
-| mid        | description       |     score | topicality | img_id                                                                                             |
-|:-----------|:------------------|----------:|-----------:|:---------------------------------------------------------------------------------------------------|
-| /m/01n5jq  | Poster            | 0.8651403 |  0.8651403 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/07c1v   | Technology        | 0.7464914 |  0.7464914 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/0bs7_0t | Electronic device | 0.7454269 |  0.7454269 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/02kdv5l | Action film       | 0.6947994 |  0.6947994 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
-| /m/03gq5hm | Font              | 0.6943765 |  0.6943765 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| mid        | description         |     score | topicality | img_id                                                                                             |
+|:-----------|:--------------------|----------:|-----------:|:---------------------------------------------------------------------------------------------------|
+| /m/01n5jq  | Poster              | 0.8570013 |  0.8570013 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/07c1v   | Technology          | 0.7384903 |  0.7384903 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/081pkj  | Event               | 0.6845369 |  0.6845369 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/02h7lkt | Fictional character | 0.6801612 |  0.6801612 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
+| /m/02kdv5l | Action film         | 0.6731423 |  0.6731423 | <https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg> |
 
 The package also extracts bounding polygons for logos, objects, faces
 and landmarks. We can for instance visualize all recognized logos of the
@@ -169,7 +167,7 @@ Google Vision, but can for instance be identified with
 ``` r
 img_info <- image_info(img) 
 img_info
-#> # A tibble: 1 x 7
+#> # A tibble: 1 × 7
 #>   format width height colorspace matte filesize density
 #>   <chr>  <int>  <int> <chr>      <lgl>    <int> <chr>  
 #> 1 JPEG     220    322 sRGB       FALSE   136703 28x28
@@ -181,7 +179,7 @@ Additional functions for feature analysis are currently in development.
 
 Please cite *imgrec* if you use the package for publications:
 
-    Carsten Schwemmer (2021). imgrec: Image Recognition. R package version 0.1.3.
+    Carsten Schwemmer (2024). imgrec: Image Recognition. R package version 0.1.3.
     https://CRAN.R-project.org/package=imgrec
 
 A BibTeX entry for LaTeX users is:
@@ -189,7 +187,7 @@ A BibTeX entry for LaTeX users is:
     @Manual{,
       title = {imgrec: Image Recognition},
       author = {Carsten Schwemmer},
-      year = {2021},
-      note = {R package version 0.1.3},
+      year = {2024},
+      note = {R package version 0.1.4},
       url = {https://CRAN.R-project.org/package=imgrec},
     }

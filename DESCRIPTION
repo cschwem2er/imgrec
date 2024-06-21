@@ -1,27 +1,27 @@
 Package: imgrec
 Type: Package
 Title: An Interface for Image Recognition
-Version: 0.1.3
-Date: 2021-12-09
+Version: 0.1.4
+Date: 2024-06-21
 Authors@R: person("Carsten", "Schwemmer", email = "c.schwem2er@gmail.com", comment = c(ORCID = "0000-0001-9084-946X"), role = c("aut", "cre"))
 URL: https://github.com/cschwem2er/imgrec
 BugReports: https://github.com/cschwem2er/imgrec/issues
 Description: Provides an interface for image recognition using the 'Google Vision API' <https://cloud.google.com/vision/> .  Converts API data for features such as object detection and optical character recognition to data frames. The package also includes functions for analyzing image annotations.
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Imports:
-    knitr (>= 1.3.0),
+    knitr (>= 1.4.7),
     base64enc (>= 0.1-0),
-    dplyr (>= 1.0.0),
+    dplyr (>= 1.1.0),
     httr (>= 1.4.0),
-    jsonlite (>= 1.7.0),
-    rlang (>= 0.4.0)
+    jsonlite (>= 1.8.0),
+    rlang (>= 1.1.0),
+    methods
 Suggests: 
-    magick (>= 2.7.0),
-    ggplot2 (>= 3.3.0),
-    usethis (>= 2.1.0),
+    magick (>= 2.8.0),
+    ggplot2 (>= 3.5.0),
+    usethis (>= 2.2.0),
     pillar (>= 1.6.0),
-    rtweet (>= 0.7.0),
-    rmarkdown (>= 2.7.0)
+    rmarkdown (>= 2.2)
 VignetteBuilder: knitr

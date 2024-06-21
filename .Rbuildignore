@@ -11,3 +11,4 @@ _pkgdown.yaml
 ^doc$
 ^Meta$
 ..Rcheck
+^CRAN-SUBMISSION$

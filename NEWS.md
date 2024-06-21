@@ -1,3 +1,8 @@
+
+# imgrec 0.1.4
+
+## dependency updates and removal of deprecated twitter vignette
+
 # imgrec 0.1.3
 
 ## Minor update
